@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Allmer Portfolio</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        background: '#020617', // Slate 950 (Darker)
+                        surface: '#0f172a', // Slate 900
+                        'surface-highlight': '#1e293b', // Slate 800
+                        primary: '#3b82f6',
+
+                        // Status Colors
+                        'status-red': '#ef4444',
+                        'status-yellow': '#facc15',
+                        'status-green': '#22c55e',
+
+                        // Brand Colors
+                        'sa-blue': '#bfdbfe',
+                        'sa-darkblue': '#60a5fa',
+                    },
+                    boxShadow: {
+                        'glow-red': '0 0 10px rgba(239, 68, 68, 0.3), inset 0 0 5px rgba(239, 68, 68, 0.1)',
+                        'glow-yellow': '0 0 10px rgba(250, 204, 21, 0.3), inset 0 0 5px rgba(250, 204, 21, 0.1)',
+                        'glow-green': '0 0 10px rgba(34, 197, 94, 0.3), inset 0 0 5px rgba(34, 197, 94, 0.1)',
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Glass/Card Styles */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .dashboard-card {
+            background-color: #0f172a;
+            /* Surface */
+            border: 1px solid #1e293b;
+            /* Highlight border */
+            border-radius: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            border-color: #334155;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Navigation Tabs */
+        .nav-tab {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #60a5fa;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-tab:hover::after {
+            width: 80%;
+        }
+
+        .nav-tab.active {
+            color: #bfdbfe;
+        }
+
+        .nav-tab.active::after {
+            width: 100%;
+        }
+
+        /* Country Buttons */
+        .country-btn {
+            background-color: #1e293b;
+            /* Surface Highlight */
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .country-btn:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        /* Status Borders & Glows */
+        .border-status-red {
+            border-color: #ef4444;
+        }
+
+        .border-status-yellow {
+            border-color: #facc15;
+        }
+
+        .border-status-green {
+            border-color: #22c55e;
+        }
+
+        .country-btn.status-red:hover {
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .country-btn.status-yellow:hover {
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+        }
+
+        .country-btn.status-green:hover {
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+        }
+
+        .delay-100 {
+            animation-delay: 100ms;
+        }
+
+        .delay-200 {
+            animation-delay: 200ms;
+        }
+
+        .delay-300 {
+            animation-delay: 300ms;
+        }
+
+        /* Modal */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Password Protection Overlay -->
+    <div id="password-overlay"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+        <div class="text-center px-6">
+            <div class="mb-8">
+                <h1 class="font-display text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight">Simon Allmer</h1>
+                <p class="text-slate-400 text-lg uppercase tracking-widest">Portfolio</p>
+            </div>
+            <div class="bg-surface border border-slate-700 rounded-2xl p-8 shadow-2xl max-w-md mx-auto">
+                <div class="mb-6">
+                    <svg class="w-16 h-16 mx-auto text-sa-blue mb-4" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                        </path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-white mb-2">Access Required</h2>
+                    <p class="text-slate-400 text-sm">This is a private document</p>
+                </div>
+                <form onsubmit="checkPassword(event)" class="space-y-4">
+                    <div>
+                        <input type="password" id="password-input" placeholder="Enter password"
+                            class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:border-sa-blue focus:outline-none focus:ring-2 focus:ring-sa-blue/50 transition-all"
+                            autocomplete="off" />
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-sa-blue hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        Unlock Portfolio
+                    </button>
+                    <p id="password-error" class="text-red-400 text-sm hidden">Incorrect password. Please try again.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden until password is correct) -->
+    <div id="main-app" class="hidden flex-1 flex flex-col">
+
+        <!-- Header -->
+        <header class="py-8 text-center animate-fade-in">
+            <h1 class="font-display text-4xl md:text-5xl font-bold text-white mb-2 tracking-tight cursor-pointer hover:text-sa-blue transition-colors"
+                onclick="switchTab('home')">Simon Allmer</h1>
+            <p class="text-slate-400 text-lg uppercase tracking-widest text-sm">Portfolio</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="mb-8 overflow-x-auto">
+            <div class="flex justify-center min-w-max space-x-2 md:space-x-8 px-4 border-b border-slate-800">
+                <button class="nav-tab active py-4 px-2 text-slate-300 font-medium hover:text-white"
+                    onclick="switchTab('home')">Home</button>
+                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
+                    onclick="switchTab('projects')">Projects</button>
+                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
+                    onclick="switchTab('products')">Products</button>
+                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
+                    onclick="switchTab('brands')">Brands</button>
+                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
+                    onclick="switchTab('events')">Events</button>
+                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
+                    onclick="switchTab('partners')">Partners</button>
+                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
+                    onclick="switchTab('financials')">Financials</button>
+                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
+                    onclick="switchTab('dictionary')">Dictionary</button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main id="main-content" class="flex-grow max-w-7xl mx-auto w-full px-4 pb-12 transition-opacity duration-300">
+            <!-- Content injected via JS -->
+        </main>
+
+        <!-- Sub Page Container (Hidden by default) -->
+        <div id="sub-page-container" class="hidden flex-grow max-w-7xl mx-auto w-full px-4 pb-12 animate-fade-in">
+            <!-- Sub page content injected via JS -->
+        </div>
+
+        <!-- Detail Modal -->
+        <div id="detail-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog"
+            aria-modal="true">
+            <div class="fixed inset-0 modal-backdrop transition-opacity opacity-0" id="modal-backdrop"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto">
+                <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                    <div class="relative transform overflow-hidden rounded-2xl bg-surface border border-slate-700 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg opacity-0 scale-95"
+                        id="modal-panel">
+                        <div class="bg-surface px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-2xl font-display font-bold text-white" id="modal-title">Title</h3>
+                                <button type="button" class="text-slate-400 hover:text-white transition-colors"
+                                    onclick="closeModal()">
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="mt-2" id="modal-body">
+                                <!-- Modal Content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inline Script to avoid CORS/Module issues locally -->
+        <script type="module">
+            // Password Protection
+            const CORRECT_PASSWORD = 'magic2020';
+
+            window.checkPassword = function (event) {
+                event.preventDefault();
+                const input = document.getElementById('password-input');
+                const error = document.getElementById('password-error');
+
+                if (input.value === CORRECT_PASSWORD) {
+                    document.getElementById('password-overlay').classList.add('hidden');
+                    document.getElementById('main-app').classList.remove('hidden');
+                    sessionStorage.setItem('portfolio_authenticated', 'true');
+                } else {
+                    error.classList.remove('hidden');
+                    input.value = '';
+                    input.focus();
+                    setTimeout(() => error.classList.add('hidden'), 3000);
+                }
+            };
+
+            // Check if already authenticated in this session
+            if (sessionStorage.getItem('portfolio_authenticated') === 'true') {
+                document.getElementById('password-overlay').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+            }
+
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+            import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+            import { getFirestore, collection, addDoc, query, where, onSnapshot, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+            // --- DATA ---
+            const countryData = {
+                'Canada': {
+                    region: 'America', flag: '🇨🇦', population: '38.2 Million',
+                    largestCities: [{ name: 'Toronto', pop: '6.2M' }, { name: 'Montreal', pop: '4.2M' }, { name: 'Vancouver', pop: '2.6M' }],
+                    cities: ['Toronto', 'Vancouver'], entities: ['Allmer CA'], realEstate: 0, partners: [], note: 'North American content localization.', presenceLevel: 'red'
+                },
+                'United States': {
+                    region: 'America', flag: '🇺🇸', population: '331.9 Million',
+                    largestCities: [{ name: 'New York', pop: '8.8M' }, { name: 'Los Angeles', pop: '3.9M' }, { name: 'Chicago', pop: '2.7M' }],
+                    cities: ['New York', 'Los Angeles'], entities: ['Allmer Ent. LLC'], realEstate: 0, partners: [], note: 'Largest single market.', presenceLevel: 'red'
+                },
+                'Mexico': {
+                    region: 'America', flag: '🇲🇽', population: '126.7 Million',
+                    largestCities: [{ name: 'Mexico City', pop: '9.2M' }, { name: 'Tijuana', pop: '1.8M' }, { name: 'Ecatepec', pop: '1.6M' }],
+                    cities: ['Mexico City'], entities: ['Allmer MX'], realEstate: 0, partners: [], note: 'LatAm hub.', presenceLevel: 'red'
+                },
+                'Colombia': {
+                    region: 'America', flag: '🇨🇴', population: '51.5 Million',
+                    largestCities: [{ name: 'Bogotá', pop: '7.7M' }, { name: 'Medellín', pop: '2.5M' }, { name: 'Cali', pop: '2.2M' }],
+                    cities: ['Bogotá'], entities: ['Allmer CO'], realEstate: 0, partners: [], note: 'Andean region base.', presenceLevel: 'red'
+                },
+                'Peru': {
+                    region: 'America', flag: '🇵🇪', population: '33.7 Million',
+                    largestCities: [{ name: 'Lima', pop: '9.7M' }, { name: 'Arequipa', pop: '1.0M' }, { name: 'Trujillo', pop: '0.9M' }],
+                    cities: ['Lima'], entities: ['Allmer PE'], realEstate: 0, partners: [], note: 'Andean market.', presenceLevel: 'red'
+                },
+                'Brazil': {
+                    region: 'America', flag: '🇧🇷', population: '214.3 Million',
+                    largestCities: [{ name: 'São Paulo', pop: '12.3M' }, { name: 'Rio de Janeiro', pop: '6.7M' }, { name: 'Brasília', pop: '3.0M' }],
+                    cities: ['São Paulo'], entities: ['Allmer BR'], realEstate: 0, partners: [], note: 'Key e-commerce market.', presenceLevel: 'red'
+                },
+                'Argentina': {
+                    region: 'America', flag: '🇦🇷', population: '45.8 Million',
+                    largestCities: [{ name: 'Buenos Aires', pop: '2.9M' }, { name: 'Córdoba', pop: '1.3M' }, { name: 'Rosario', pop: '0.9M' }],
+                    cities: ['Buenos Aires'], entities: ['Allmer AR'], realEstate: 0, partners: [], note: 'Southern Cone base.', presenceLevel: 'red'
+                },
+
+                'United Kingdom': {
+                    region: 'Europe', flag: '🇬🇧', population: '67.3 Million',
+                    largestCities: [{ name: 'London', pop: '8.9M' }, { name: 'Birmingham', pop: '1.1M' }, { name: 'Glasgow', pop: '0.6M' }],
+                    cities: ['London'], entities: ['Allmer UK Ltd'], realEstate: 0, partners: [], note: 'Primary English market in Europe.', presenceLevel: 'red'
+                },
+                'Portugal': {
+                    region: 'Europe', flag: '🇵🇹', population: '10.3 Million',
+                    largestCities: [{ name: 'Lisbon', pop: '0.5M' }, { name: 'Porto', pop: '0.2M' }, { name: 'Vila Nova de Gaia', pop: '0.3M' }],
+                    cities: ['Lisbon'], entities: ['Allmer PT'], realEstate: 0, partners: [], note: 'Gateway to Brazil.', presenceLevel: 'red'
+                },
+                'Spain': {
+                    region: 'Europe', flag: '🇪🇸', population: '47.4 Million',
+                    largestCities: [{ name: 'Madrid', pop: '3.2M' }, { name: 'Barcelona', pop: '1.6M' }, { name: 'Valencia', pop: '0.8M' }],
+                    cities: ['Madrid'], entities: ['Allmer ES'], realEstate: 0, partners: [], note: 'Spanish market hub.', presenceLevel: 'red'
+                },
+                'France': {
+                    region: 'Europe', flag: '🇫🇷', population: '67.7 Million',
+                    largestCities: [{ name: 'Paris', pop: '2.1M' }, { name: 'Marseille', pop: '0.8M' }, { name: 'Lyon', pop: '0.5M' }],
+                    cities: ['Paris'], entities: ['Allmer FR'], realEstate: 0, partners: [], note: 'Music distribution.', presenceLevel: 'red'
+                },
+                'Germany': {
+                    region: 'Europe', flag: '🇩🇪', population: '83.2 Million',
+                    largestCities: [{ name: 'Berlin', pop: '3.6M' }, { name: 'Hamburg', pop: '1.8M' }, { name: 'Munich', pop: '1.4M' }],
+                    cities: ['Berlin'], entities: ['Allmer DE'], realEstate: 0, partners: [], note: 'Gaming market.', presenceLevel: 'red'
+                },
+                'Italy': {
+                    region: 'Europe', flag: '🇮🇹', population: '59.1 Million',
+                    largestCities: [{ name: 'Rome', pop: '2.8M' }, { name: 'Milan', pop: '1.3M' }, { name: 'Naples', pop: '0.9M' }],
+                    cities: ['Rome', 'Milan'], entities: ['Allmer IT Srl'], realEstate: 0, partners: ['Film Production Studio A', 'Merchandise Distributor B'], note: 'Film partnerships.', presenceLevel: 'yellow'
+                },
+                'Austria': {
+                    region: 'Europe', flag: '🇦🇹', population: '8.9 Million',
+                    largestCities: [{ name: 'Vienna', pop: '1.9M' }, { name: 'Graz', pop: '0.3M' }, { name: 'Linz', pop: '0.2M' }],
+                    cities: ['Vienna', 'Salzburg'], entities: ['Allmer AT GmbH'], realEstate: 3, realEstateDetails: [{ name: 'Wieden', type: 'Mixed' }, { name: 'Döbling', type: 'Residential' }, { name: 'Wagram', type: 'Invest' }], partners: ['Bank Partner C'], note: 'Global HQ.', presenceLevel: 'green'
+                },
+
+                'India': {
+                    region: 'Asia', flag: '🇮🇳', population: '1.38 Billion',
+                    largestCities: [{ name: 'Mumbai', pop: '12.5M' }, { name: 'Delhi', pop: '11.0M' }, { name: 'Bangalore', pop: '8.4M' }],
+                    cities: ['Mumbai'], entities: ['Allmer IN'], realEstate: 0, partners: ['Mayank Kumarr'], note: 'Mobile games growth.', presenceLevel: 'yellow'
+                },
+                'Singapore': {
+                    region: 'Asia', flag: '🇸🇬', population: '5.7 Million',
+                    largestCities: [{ name: 'Singapore', pop: '5.7M' }],
+                    cities: ['Singapore'], entities: ['Allmer SG'], realEstate: 0, partners: [], note: 'Financial Hub.', presenceLevel: 'red'
+                },
+                'Indonesia': {
+                    region: 'Asia', flag: '🇮🇩', population: '273.5 Million',
+                    largestCities: [{ name: 'Jakarta', pop: '10.5M' }, { name: 'Surabaya', pop: '2.8M' }, { name: 'Bandung', pop: '2.4M' }],
+                    cities: ['Jakarta'], entities: ['Allmer ID'], realEstate: 0, partners: [], note: 'SE Asia growth.', presenceLevel: 'red'
+                },
+                'China': {
+                    region: 'Asia', flag: '🇨🇳', population: '1.41 Billion',
+                    largestCities: [{ name: 'Shanghai', pop: '26.3M' }, { name: 'Beijing', pop: '21.5M' }, { name: 'Chongqing', pop: '30.5M' }],
+                    cities: ['Beijing'], entities: ['Allmer CN'], realEstate: 0, partners: ['Jang Jae Ok'], note: 'Complex partnerships.', presenceLevel: 'yellow'
+                },
+                'South Korea': {
+                    region: 'Asia', flag: '🇰🇷', population: '51.7 Million',
+                    largestCities: [{ name: 'Seoul', pop: '9.7M' }, { name: 'Busan', pop: '3.4M' }, { name: 'Incheon', pop: '2.9M' }],
+                    cities: ['Seoul'], entities: ['Allmer KR'], realEstate: 0, partners: ['Yong Hoo Kim'], note: 'E-Sports focus.', presenceLevel: 'yellow'
+                },
+                'Japan': {
+                    region: 'Asia', flag: '🇯🇵', population: '125.8 Million',
+                    largestCities: [{ name: 'Tokyo', pop: '13.9M' }, { name: 'Yokohama', pop: '3.7M' }, { name: 'Osaka', pop: '2.7M' }],
+                    cities: ['Tokyo'], entities: ['Allmer JP'], realEstate: 0, partners: [], note: 'IP market.', presenceLevel: 'red'
+                },
+                'Australia': {
+                    region: 'Asia', flag: '🇦🇺', population: '25.7 Million',
+                    largestCities: [{ name: 'Sydney', pop: '5.3M' }, { name: 'Melbourne', pop: '5.0M' }, { name: 'Brisbane', pop: '2.5M' }],
+                    cities: ['Sydney'], entities: ['Allmer AU'], realEstate: 0, partners: [], note: 'Oceania logistics.', presenceLevel: 'red'
+                },
+            };
+
+            const subdivisions = {
+                'Allmer Studios': ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games', 'Allmer Journals', 'Allmer Snacks'],
+                'Brands': ['Franchise Development', 'Extensions', 'Merchandise', 'Communications'],
+                'Simon Allmer Stores': ['Website', 'Apple', 'Google', 'Microsoft'],
+                'Simon Allmer Centers': ['America', 'Europe', 'Africa', 'Asia']
+            };
+
+            const communicationsData = [
+                {
+                    handle: '@simonallmer',
+                    name: 'Simon Allmer',
+                    website: 'simonallmer.com',
+                    platforms: { 'YouTube': true, 'Instagram': true, 'Threads': true, 'X': true },
+                    url: 'https://instagram.com/simonallmer'
+                },
+                {
+                    handle: '@allmercomics',
+                    name: 'Allmer Comics',
+                    website: 'allmercomics.com',
+                    platforms: { 'YouTube': true, 'Instagram': true, 'Threads': true, 'X': true },
+                    url: 'https://instagram.com/allmercomics'
+                },
+                {
+                    handle: '@allmerfilms',
+                    name: 'Allmer Films',
+                    website: 'allmerfilms.com',
+                    platforms: { 'YouTube': true, 'Instagram': true, 'Threads': true, 'X': true },
+                    url: 'https://instagram.com/allmerfilms'
+                },
+                {
+                    handle: '@allmermusic',
+                    name: 'Allmer Music',
+                    website: 'allmermusic.com',
+                    platforms: { 'YouTube': true, 'Instagram': true, 'Threads': true, 'X': true },
+                    url: 'https://instagram.com/allmermusic'
+                },
+                {
+                    handle: '@allmergames',
+                    name: 'Allmer Games',
+                    website: 'allmergames.com',
+                    platforms: { 'YouTube': true, 'Instagram': true, 'Threads': true, 'X': true },
+                    url: 'https://instagram.com/allmergames'
+                },
+                {
+                    handle: '@allmerjournals',
+                    name: 'Allmer Journals',
+                    website: 'allmerjournals.com',
+                    platforms: { 'YouTube': true, 'Instagram': true, 'Threads': true, 'X': true },
+                    url: 'https://instagram.com/allmerjournals'
+                },
+                {
+                    handle: '@allmersnacks',
+                    name: 'Allmer Snacks',
+                    website: 'allmersnacks.com',
+                    platforms: { 'YouTube': true, 'Instagram': true, 'Threads': true, 'X': true },
+                    url: 'https://instagram.com/allmersnacks'
+                },
+                {
+                    handle: '@amerportrait',
+                    name: 'American Portrait',
+                    website: null,
+                    platforms: { 'YouTube': false, 'Instagram': true, 'Threads': false, 'X': false },
+                    url: 'https://instagram.com/amerportrait'
+                },
+                {
+                    handle: '@detectivenoname',
+                    name: 'Detective Noname',
+                    website: null,
+                    platforms: { 'YouTube': false, 'Instagram': true, 'Threads': false, 'X': false },
+                    url: 'https://instagram.com/detectivenoname'
+                },
+                {
+                    handle: '@futorysaga',
+                    name: 'Futory',
+                    website: 'futory.com',
+                    platforms: { 'YouTube': false, 'Instagram': true, 'Threads': false, 'X': false },
+                    url: 'https://instagram.com/futorysaga'
+                },
+                {
+                    handle: '@lunyracity',
+                    name: 'Lunyra',
+                    website: 'lunyra.com',
+                    platforms: { 'YouTube': false, 'Instagram': true, 'Threads': false, 'X': false },
+                    url: 'https://instagram.com/lunyracity'
+                },
+                {
+                    handle: '@sevenwondersgame',
+                    name: 'Seven Wonders',
+                    website: null,
+                    platforms: { 'YouTube': false, 'Instagram': true, 'Threads': false, 'X': false },
+                    url: 'https://instagram.com/sevenwondersgame'
+                },
+                {
+                    handle: '@societyreview',
+                    name: 'Society Review',
+                    website: 'societyreview.org',
+                    platforms: { 'YouTube': true, 'Instagram': true, 'Threads': false, 'X': false },
+                    url: 'https://instagram.com/societyreview'
+                }
+            ];
+
+            const projectData = [
+                {
+                    title: "Believe",
+                    budget: "€8,800 (€4,800 Illus. + €4,000 Print)",
+                    steps: [
+                        { name: "Illustrations", detail: "By Mayank Kumarr", status: "active", progress: "5/80" },
+                        { name: "Printing", detail: "DoFine Games (Shanghai)", status: "pending" },
+                        { name: "Sales", detail: "Simon Allmer Store", status: "pending" }
+                    ]
+                },
+                {
+                    title: "American Portrait",
+                    subtitle: "Kissinger: A World Destroyed",
+                    budget: "€10,000 (Estimated)",
+                    steps: [
+                        { name: "Screenplay", detail: "Writing Phase", status: "done" },
+                        { name: "Illustrations", detail: "Artist TBD", status: "active" },
+                        { name: "Printing", detail: "Printer TBD", status: "pending" },
+                        { name: "Sales", detail: "Simon Allmer Store", status: "pending" }
+                    ]
+                },
+                {
+                    title: "Sin Album",
+                    budget: "€0",
+                    steps: [
+                        { name: "Song Writing", detail: "Lyrics & Composition", status: "done" },
+                        { name: "Song Recording", detail: "Studio Recording", status: "active" },
+                        { name: "Videoshoot", detail: "Music Videos", status: "pending" },
+                        { name: "Release", detail: "Allmer Music", status: "pending" }
+                    ]
+                }
+            ];
+
+            const partnersData = [
+                {
+                    name: "David Kissinger",
+                    role: "Film Producer and Script Advisor",
+                    projects: ["American Portrait"]
+                }
+            ];
+
+            const dictionaryData = [
+                { name: 'Allmer Comics', type: 'Studio', description: 'Coming soon to follow' },
+                { name: 'Allmer Films', type: 'Studio', description: 'Coming soon to follow' },
+                { name: 'Allmer Music', type: 'Studio', description: 'Coming soon to follow' },
+                { name: 'Allmer Games', type: 'Studio', description: 'Coming soon to follow' },
+                { name: 'Allmer Journals', type: 'Studio', description: 'Coming soon to follow' },
+                { name: 'Allmer Snacks', type: 'Studio', description: 'Coming soon to follow' },
+
+                { name: 'Society Review', type: 'Brand', description: 'Social commentary journal.', studios: ['Allmer Journals'], website: 'societyreview.org' },
+                { name: 'Chronicle', type: 'Brand', description: 'Historical records and storytelling.', studios: ['Allmer Journals'] },
+                { name: 'Futory', type: 'Brand', description: 'Future-focused narrative universe.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'], website: 'futory.com' },
+                { name: 'Lunyra', type: 'Brand', description: 'Fantasy world building.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'], website: 'lunyra.com' },
+                { name: 'American Portrait', type: 'Brand', description: 'Cultural exploration project.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'] },
+                { name: 'Seven Wonders', type: 'Brand', description: 'Gaming experience.', studios: ['Allmer Games', 'Allmer Snacks'] },
+                { name: 'Metropole', type: 'Brand', description: 'Snack brand.', studios: ['Allmer Snacks'] },
+                { name: 'Detective Noname', type: 'Brand', description: 'Mystery franchise.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'] },
+                { name: 'Believe', type: 'Brand', description: 'Gaming experience.', studios: ['Allmer Games'], website: 'believegame.com' },
+                { name: 'Elements', type: 'Brand', description: 'Gaming experience.', studios: ['Allmer Games'] },
+
+                { name: 'Piano Voice', type: 'Concept', description: 'Vocal Range of 5 octaves that is balanced throughout the range.' },
+                { name: 'Water Lung', type: 'Concept', description: 'Ability to hold ones breath for at least 5 minutes in a static position.' },
+                { name: 'Virtual Sports', type: 'Concept', description: 'Competitive entertainment merging physical sports with immersive digital worlds. Athletes physically move in mixed-reality arenas with VR headsets and body-tracking gear. Developed by Simon Allmer Entertainment, featuring dynamic real-time environments and global broadcasts.' }
+            ];
+
+            const eventsData = [
+                {
+                    name: 'San Diego Comic-Con',
+                    date: 'July 22–26, 2026',
+                    region: 'North America',
+                    location: 'San Diego, USA',
+                    attendance: '135,000'
+                },
+                {
+                    name: 'New York Comic Con',
+                    date: 'October 8–11, 2026',
+                    region: 'North America',
+                    location: 'New York City, USA',
+                    attendance: '200,000+'
+                },
+                {
+                    name: 'Lucca Comics & Games',
+                    date: 'Oct 28 – Nov 1, 2026',
+                    region: 'Europe',
+                    location: 'Lucca, Italy',
+                    attendance: '300,000'
+                }
+            ];
+
+            const catalogData = {
+                'Allmer Comics': [
+                    { id: 'C001', title: 'Kissinger: A World Destroyed [TBA]' },
+                    { id: 'C002', title: 'Carter: The Blood Beneath the Soil [TBA]' },
+                    { id: 'C003', title: 'Futory: Dragon Kingdom [TBA]' }
+                ],
+                'Allmer Films': [
+                    { id: 'F001', title: 'Kissinger [TBA]' },
+                    { id: 'F002', title: 'Carter [TBA]' },
+                    { id: 'F003', title: 'Futory: Dragon Kingdom [TBA]' }
+                ],
+                'Allmer Music': [
+                    { id: 'M001', title: 'American Portrait' },
+                    { id: 'M002', title: 'Sin [TBA]' }
+                ],
+                'Allmer Games': [
+                    { id: 'G001', title: 'Pyramid' },
+                    { id: 'G002', title: 'Nectar' },
+                    { id: 'G003', title: 'Futory Cards Unity' },
+                    { id: 'G004', title: 'Elements' },
+                    { id: 'G005', title: 'Gardens' },
+                    { id: 'G006', title: 'Temple' },
+                    { id: 'G007', title: 'Believe' },
+                    { id: 'G008', title: 'Futory Cards Duality' },
+                    { id: 'G009', title: 'Detective Noname and the Silent Circle' },
+                    { id: 'G010', title: 'Statue' },
+                    { id: 'G011', title: 'Mausoleum' },
+                    { id: 'G012', title: 'Colossus' },
+                    { id: 'G013', title: 'Pharos' }
+                ],
+                'Allmer Journals': [
+                    { id: 'J001', title: 'Simon Allmer World' },
+                    { id: 'J002', title: 'Society Review' },
+                    { id: 'J003', title: 'Chronicle' },
+                    { id: 'J004', title: 'ACRONYM' }
+                ],
+                'Allmer Snacks': [
+                    { id: 'S001', title: 'Solar-Soda' },
+                    { id: 'S002', title: 'Metropole Coffee Candy' },
+                    { id: 'S003', title: 'Hot Ice [TBA]' }
+                ]
+            };
+
+            let inventoryData = {
+                games: [
+                    { name: 'Elements', stockSale: 150, stockGift: 15, price: 12.00 },
+                    { name: 'Futory Cards Unity', stockSale: 170, stockGift: 4, price: 25.00 }
+                ],
+                snacks: [
+                    { name: 'Metropole Coffee Candy', stockSale: 10, stockGift: 0, price: 10.00 }
+                ]
+            };
+
+            window.updateStock = function (category, index, type, change) {
+                const item = inventoryData[category][index];
+                if (type === 'sale') {
+                    item.stockSale = Math.max(0, item.stockSale + change);
+                } else {
+                    item.stockGift = Math.max(0, item.stockGift + change);
+                }
+                renderFinancials(document.getElementById('main-content'));
+            }
+
+            // --- FIREBASE SETUP ---
+            const appId = typeof window.__app_id !== 'undefined' ? window.__app_id : 'default-app-id';
+            let firebaseConfig = {};
+            try {
+                if (typeof window.__firebase_config !== 'undefined') firebaseConfig = JSON.parse(window.__firebase_config);
+            } catch (e) { console.error(e); }
+
+            const ACCOUNT_ID = 'Allmer Bank';
+            const LEDGER_PATH = `artifacts/${appId}/public/data/ledger_entries`;
+            let db, auth, userId, isAuthReady = false;
+
+            function initFirebase() {
+                if (Object.keys(firebaseConfig).length === 0) return;
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        isAuthReady = true;
+                        if (currentTab === 'assets') setupLedger();
+                    } else {
+                        signInAnonymously(auth).catch(console.error);
+                    }
+                });
+            }
+
+            window.showTooltip = function (evt, text) {
+                const tooltip = document.getElementById('graph-tooltip');
+                tooltip.textContent = text;
+                tooltip.style.left = evt.pageX + 10 + 'px';
+                tooltip.style.top = evt.pageY - 10 + 'px';
+                tooltip.style.opacity = '1';
+            };
+
+            window.hideTooltip = function () {
+                const tooltip = document.getElementById('graph-tooltip');
+                tooltip.style.opacity = '0';
+            };
+
+            // --- APP LOGIC ---
+            let currentTab = 'home';
+
+            window.switchTab = function (tabName) {
+                currentTab = tabName;
+
+                // Ensure sub-page is closed when switching tabs
+                closeSubPage();
+
+                // Update Nav
+                document.querySelectorAll('.nav-tab').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('onclick').includes(tabName)) btn.classList.add('active');
+                });
+
+                // Render
+                const main = document.getElementById('main-content');
+                main.style.opacity = '0';
+                setTimeout(() => {
+                    if (tabName === 'home') renderHome(main);
+                    else if (tabName === 'projects') renderProjects(main);
+                    else if (tabName === 'products') renderProducts(main);
+                    else if (tabName === 'brands') renderBrands(main);
+                    else if (tabName === 'events') renderEvents(main);
+                    else if (tabName === 'partners') renderPartners(main);
+                    else if (tabName === 'financials') renderFinancials(main);
+                    else if (tabName === 'dictionary') renderDictionary(main);
+
+                    main.classList.remove('animate-slide-up');
+                    void main.offsetWidth; // trigger reflow
+                    main.classList.add('animate-slide-up');
+                    main.style.opacity = '1';
+                }, 200);
+            };
+
+            function renderHome(container) {
+                container.innerHTML = `
+                <!-- Header Section -->
+                <div class="flex justify-center mb-12">
+                    <div class="bg-surface-highlight border border-slate-600 px-8 py-4 rounded-xl shadow-2xl text-center max-w-md w-full">
+                        <h2 class="text-2xl font-display font-bold text-white">Simon Allmer<br>Entertainment</h2>
+                    </div>
+                </div>
+
+                <!-- Divisions Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20 max-w-5xl mx-auto">
+                    ${Object.entries(subdivisions).map(([title, items]) => `
+                        <div class="dashboard-card p-6 text-center group cursor-pointer" onclick="toggleDivision(this)">
+                            <h3 class="text-xl font-bold text-white mb-1">${title}</h3>
+                            <p class="text-sm text-slate-400 mb-4 group-hover:text-sa-blue transition-colors">(Click to Expand ▾)</p>
+                            
+                            <div class="hidden space-y-2 mb-4 text-left bg-slate-950/50 p-4 rounded-lg border border-white/5 animate-fade-in">
+                                ${items.map(item => `<div class="text-slate-300 hover:text-white cursor-pointer py-1 border-b border-white/5 last:border-0" onclick="event.stopPropagation(); showModal('${item}')">${item}</div>`).join('')}
+                            </div>
+
+                            ${title === 'Allmer Studios' ? `
+                                <button class="mt-2 text-xs font-bold text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-3 py-1 transition-all" onclick="event.stopPropagation(); switchTab('products')">
+                                    View Products
+                                </button>
+                            ` : ''}
+                            ${title === 'Brands' ? `
+                                <button class="mt-2 text-xs font-bold text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-3 py-1 transition-all" onclick="event.stopPropagation(); switchTab('brands')">
+                                    View Brands
+                                </button>
+                            ` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- Global Operations Header -->
+                <div class="flex justify-center mb-8">
+                     <div class="bg-surface-highlight border border-slate-600 px-12 py-3 rounded-lg shadow-lg text-center">
+                        <h2 class="text-xl font-display font-bold text-white">Global Operations</h2>
+                    </div>
+                </div>
+
+                <!-- Country Grid -->
+                <div class="bg-surface border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl max-w-6xl mx-auto">
+                    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-4">
+                        ${Object.entries(countryData).map(([name, data]) => `
+                            <button class="country-btn flex flex-col items-center justify-center p-3 rounded-xl border-status-${data.presenceLevel} status-${data.presenceLevel} h-28 w-full" onclick="showCountryModal('${name}')">
+                                <span class="text-3xl mb-2 filter drop-shadow-lg">${data.flag}</span>
+                                <span class="text-xs text-slate-300 font-medium leading-tight">${name}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="mt-8 bg-surface-highlight/50 border border-slate-800 rounded-xl p-6 max-w-4xl mx-auto">
+                    <h4 class="text-lg font-bold text-slate-200 mb-4">Presence Legend</h4>
+                    <div class="flex flex-col md:flex-row justify-center gap-6 text-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="w-4 h-4 rounded-full border-2 border-status-red bg-red-900/20"></div>
+                            <span class="text-status-red font-semibold">Red: No Physical Presence (Digital/Partners Only)</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-4 h-4 rounded-full border-2 border-status-yellow bg-yellow-900/20"></div>
+                            <span class="text-status-yellow font-semibold">Yellow: Active Partners</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-4 h-4 rounded-full border-2 border-status-green bg-green-900/20"></div>
+                            <span class="text-status-green font-semibold">Green: Physical Presence</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }
+
+            function renderProjects(container) {
+                container.innerHTML = `
+                <div class="max-w-4xl mx-auto mt-8">
+                    <h2 class="text-3xl font-bold text-sa-blue mb-10 text-center">Project Tracker</h2>
+                    
+                    <div class="space-y-8">
+                        ${projectData.map(project => `
+                            <div class="dashboard-card p-6">
+                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b border-slate-700 pb-4">
+                                    <div>
+                                        <h3 class="text-2xl font-bold text-white">${project.title}</h3>
+                                        ${project.subtitle ? `<p class="text-slate-400 text-sm">${project.subtitle}</p>` : ''}
+                                    </div>
+                                    <div class="mt-2 md:mt-0 text-right">
+                                        <span class="text-xs text-slate-500 uppercase font-bold">Estimated Budget</span>
+                                        <p class="text-status-green font-mono font-bold">${project.budget}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Kanban Stepper -->
+                                <div class="relative">
+                                    <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-800 -translate-y-1/2 rounded"></div>
+                                    <div class="relative z-10 flex justify-between">
+                                        ${project.steps.map((step, index) => {
+                    let statusColor = 'bg-slate-800 border-slate-600 text-slate-500'; // Pending
+                    let icon = index + 1;
+
+                    if (step.status === 'active') {
+                        statusColor = 'bg-sa-darkblue border-sa-blue text-white shadow-[0_0_15px_rgba(96,165,250,0.5)]';
+                    } else if (step.status === 'done') {
+                        statusColor = 'bg-status-green border-green-400 text-white';
+                        icon = '✓';
+                    }
+
+                    return `
+                                                <div class="flex flex-col items-center group flex-1">
+                                                    <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 ${statusColor} font-bold transition-all mb-3 z-10 bg-surface">
+                                                        ${icon}
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <p class="text-sm font-bold ${step.status === 'active' ? 'text-white' : 'text-slate-400'}">${step.name}</p>
+                                                        <p class="text-xs text-slate-500 max-w-[120px] mx-auto">${step.detail}</p>
+                                                        ${step.progress ? `<span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-sa-blue border border-slate-700">${step.progress}</span>` : ''}
+                                                    </div>
+                                                </div>
+                                            `;
+                }).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            }
+
+            function renderPartners(container) {
+                container.innerHTML = `
+                <div class="max-w-4xl mx-auto mt-8">
+                    <h2 class="text-3xl font-bold text-sa-blue mb-10 text-center">Strategic Partners</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        ${partnersData.map(partner => `
+                            <div class="dashboard-card p-6 flex items-center space-x-6 hover:bg-slate-800/50 transition-colors cursor-default">
+                                <div class="w-20 h-20 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center text-2xl font-bold text-white border border-slate-600 shadow-lg">
+                                    ${partner.name.split(' ').map(n => n[0]).join('')}
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">${partner.name}</h3>
+                                    <p class="text-sa-blue text-sm font-medium mb-2">${partner.role}</p>
+                                    <div class="text-xs text-slate-400">
+                                        <span class="font-bold uppercase text-slate-500">Projects:</span>
+                                        ${partner.projects.join(', ')}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            }
+
+            function renderFinancials(container) {
+                // Calculate Totals
+                const getCategoryTotal = (items) => items.reduce((sum, item) => sum + (item.stockSale * item.price), 0);
+                const gamesTotal = getCategoryTotal(inventoryData.games);
+                const snacksTotal = getCategoryTotal(inventoryData.snacks);
+
+                container.innerHTML = `
+                <div class="max-w-5xl mx-auto mt-10 space-y-12">
+                    <h2 class="text-3xl font-bold text-sa-blue mb-8 text-center">Assets & Inventory</h2>
+                    
+                    <!-- Liquid Assets (Preserved) -->
+                    <div class="dashboard-card p-8">
+                        <div class="flex justify-between items-start border-b border-slate-700 pb-6">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-1">Allmer Bank</h3>
+                                <p class="text-slate-400">Liquid Capital</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-4xl font-mono font-bold text-status-green">€10.00</span>
+                                <span class="text-sm text-slate-500">Total Balance</span>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                             <div id="ledger-list" class="text-sm text-slate-400 space-y-1">
+                                <div class="flex justify-between py-2 border-b border-slate-800">
+                                    <span class="text-slate-300">Initial Capital Injection</span>
+                                    <span class="text-sa-blue font-mono">10.00€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Linear Depreciation (Planned 2026) -->
+                    <div class="dashboard-card p-8">
+                        <h3 class="text-xl font-bold text-white mb-6">Linear Depreciation (Planned 2026)</h3>
+                        
+                        <!-- Graph -->
+                        <div class="mb-8 p-4 bg-slate-900/50 rounded-xl border border-slate-800 relative">
+                            <div id="graph-tooltip" class="absolute bg-slate-800 text-white text-xs px-2 py-1 rounded border border-slate-600 pointer-events-none opacity-0 transition-opacity z-10"></div>
+                            <svg viewBox="0 0 600 300" class="w-full h-auto font-mono text-xs">
+                                <!-- Grid Lines -->
+                                <line x1="50" y1="250" x2="550" y2="250" stroke="#334155" stroke-width="1" />
+                                <line x1="50" y1="50" x2="550" y2="50" stroke="#334155" stroke-width="1" stroke-dasharray="4" />
+                                
+                                <!-- Axes Labels -->
+                                <text x="40" y="255" fill="#94a3b8" text-anchor="end">0</text>
+                                <text x="40" y="205" fill="#94a3b8" text-anchor="end">500</text>
+                                <text x="40" y="155" fill="#94a3b8" text-anchor="end">1000</text>
+                                <text x="40" y="105" fill="#94a3b8" text-anchor="end">1500</text>
+                                <text x="40" y="55" fill="#94a3b8" text-anchor="end">2000</text>
+                                
+                                <!-- Years -->
+                                <text x="50" y="270" fill="#94a3b8" text-anchor="middle">2026</text>
+                                <text x="100" y="270" fill="#94a3b8" text-anchor="middle">2027</text>
+                                <text x="150" y="270" fill="#94a3b8" text-anchor="middle">2028</text>
+                                <text x="200" y="270" fill="#94a3b8" text-anchor="middle">2029</text>
+                                <text x="250" y="270" fill="#94a3b8" text-anchor="middle">2030</text>
+                                <text x="300" y="270" fill="#94a3b8" text-anchor="middle">2031</text>
+                                <text x="350" y="270" fill="#94a3b8" text-anchor="middle">2032</text>
+                                <text x="400" y="270" fill="#94a3b8" text-anchor="middle">2033</text>
+                                <text x="450" y="270" fill="#94a3b8" text-anchor="middle">2034</text>
+                                <text x="500" y="270" fill="#94a3b8" text-anchor="middle">2035</text>
+                                <text x="550" y="270" fill="#94a3b8" text-anchor="middle">2036</text>
+
+                                <!-- Mac Mini: 1500 -> 0 (10 years) -->
+                                <path d="M50,100 L550,250" stroke="#60a5fa" stroke-width="2" />
+                                <!-- Mac Mini Interactive Points -->
+                                ${[...Array(11)].map((_, i) => {
+                    const x = 50 + i * 50;
+                    const y = 100 + i * 15; // 1500 -> 0 over 10 steps (150 per step = 15px)
+                    const val = 1500 - i * 150;
+                    return `<circle cx="${x}" cy="${y}" r="6" fill="transparent" class="cursor-pointer hover:fill-white/20" onmouseenter="showTooltip(evt, 'Mac mini: €${val}')" onmouseleave="hideTooltip()" />`;
+                }).join('')}
+                                <text x="60" y="95" fill="#60a5fa">Mac mini</text>
+
+                                <!-- iPad Pro: 1000 -> 0 (5 years) -->
+                                <path d="M50,150 L300,250" stroke="#34d399" stroke-width="2" />
+                                <!-- iPad Pro Interactive Points -->
+                                ${[...Array(6)].map((_, i) => {
+                    const x = 50 + i * 50;
+                    const y = 150 + i * 20; // 1000 -> 0 over 5 steps (200 per step = 20px)
+                    const val = 1000 - i * 200;
+                    return `<circle cx="${x}" cy="${y}" r="6" fill="transparent" class="cursor-pointer hover:fill-white/20" onmouseenter="showTooltip(evt, 'iPad Pro: €${val}')" onmouseleave="hideTooltip()" />`;
+                }).join('')}
+                                <text x="60" y="145" fill="#34d399">iPad Pro</text>
+
+                                <!-- Buy New Asset Marker -->
+                                <line x1="550" y1="50" x2="550" y2="250" stroke="#ef4444" stroke-width="1" stroke-dasharray="4" />
+                                <rect x="500" y="20" width="100" height="24" rx="4" fill="#ef4444" />
+                                <text x="550" y="36" fill="white" text-anchor="middle" font-weight="bold">Buy New Asset</text>
+                            </svg>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-900/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-700">
+                                        <th class="p-4 font-semibold">Asset</th>
+                                        <th class="p-4 font-semibold">Lifespan (Years)</th>
+                                        <th class="p-4 font-semibold text-right">Initial Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800 text-slate-300">
+                                    <tr>
+                                        <td class="p-4">Mac mini</td>
+                                        <td class="p-4">10</td>
+                                        <td class="p-4 text-right font-mono">€1,500.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4">iPad Pro</td>
+                                        <td class="p-4">5</td>
+                                        <td class="p-4 text-right font-mono">€1,000.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Inventory -->
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-end">
+                            <h3 class="text-2xl font-bold text-white">Inventory</h3>
+                            <span class="text-sm text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-700">📍 Vienna, Austria</span>
+                        </div>
+
+                        <!-- Allmer Games Inventory -->
+                        <div class="dashboard-card overflow-hidden bg-green-900/10 border-green-900/30">
+                            <div class="bg-slate-900/50 p-4 border-b border-slate-700">
+                                <h4 class="font-bold text-lg text-white">Allmer Games Inventory</h4>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-900/30 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-800">
+                                            <th class="p-4 font-semibold">Name</th>
+                                            <th class="p-4 font-semibold text-center">Stock (For Sale)</th>
+                                            <th class="p-4 font-semibold text-center">Stock (For Gifts)</th>
+                                            <th class="p-4 font-semibold text-right">Total Worth</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-800 text-slate-300 text-sm">
+                                        ${inventoryData.games.map((item, i) => `
+                                            <tr>
+                                                <td class="p-4 font-medium text-white">${item.name}</td>
+                                                <td class="p-4 text-center">
+                                                    <div class="flex items-center justify-center gap-2">
+                                                        <button onclick="updateStock('games', ${i}, 'sale', -1)" class="text-slate-500 hover:text-white px-1">-</button>
+                                                        <span class="w-8 text-center">${item.stockSale}</span>
+                                                        <button onclick="updateStock('games', ${i}, 'sale', 1)" class="text-slate-500 hover:text-white px-1">+</button>
+                                                    </div>
+                                                </td>
+                                                <td class="p-4 text-center">
+                                                    <div class="flex items-center justify-center gap-2">
+                                                        <button onclick="updateStock('games', ${i}, 'gift', -1)" class="text-slate-500 hover:text-white px-1">-</button>
+                                                        <span class="w-8 text-center">${item.stockGift}</span>
+                                                        <button onclick="updateStock('games', ${i}, 'gift', 1)" class="text-slate-500 hover:text-white px-1">+</button>
+                                                    </div>
+                                                </td>
+                                                <td class="p-4 text-right font-mono">€${(item.stockSale * item.price).toFixed(2)}</td>
+                                            </tr>
+                                        `).join('')}
+                                        <tr class="bg-slate-800/30 font-bold text-white">
+                                            <td class="p-4" colspan="3">TOTAL</td>
+                                            <td class="p-4 text-right font-mono">€${gamesTotal.toFixed(2)}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="p-3 bg-slate-900/30 text-xs text-slate-500 text-right">
+                                Last Stocktaking: 11.09.2025
+                            </div>
+                        </div>
+
+                        <!-- Allmer Snacks Inventory -->
+                        <div class="dashboard-card overflow-hidden bg-pink-900/10 border-pink-900/30">
+                            <div class="bg-slate-900/50 p-4 border-b border-slate-700">
+                                <h4 class="font-bold text-lg text-white">Allmer Snacks Inventory</h4>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-900/30 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-800">
+                                            <th class="p-4 font-semibold">Name</th>
+                                            <th class="p-4 font-semibold text-center">Stock (For Sale)</th>
+                                            <th class="p-4 font-semibold text-center">Stock (For Gifts)</th>
+                                            <th class="p-4 font-semibold text-right">Total Worth</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-800 text-slate-300 text-sm">
+                                        ${inventoryData.snacks.map((item, i) => `
+                                            <tr>
+                                                <td class="p-4 font-medium text-white">${item.name}</td>
+                                                <td class="p-4 text-center">
+                                                    <div class="flex items-center justify-center gap-2">
+                                                        <button onclick="updateStock('snacks', ${i}, 'sale', -1)" class="text-slate-500 hover:text-white px-1">-</button>
+                                                        <span class="w-8 text-center">${item.stockSale}</span>
+                                                        <button onclick="updateStock('snacks', ${i}, 'sale', 1)" class="text-slate-500 hover:text-white px-1">+</button>
+                                                    </div>
+                                                </td>
+                                                <td class="p-4 text-center">
+                                                    <div class="flex items-center justify-center gap-2">
+                                                        <button onclick="updateStock('snacks', ${i}, 'gift', -1)" class="text-slate-500 hover:text-white px-1">-</button>
+                                                        <span class="w-8 text-center">${item.stockGift}</span>
+                                                        <button onclick="updateStock('snacks', ${i}, 'gift', 1)" class="text-slate-500 hover:text-white px-1">+</button>
+                                                    </div>
+                                                </td>
+                                                <td class="p-4 text-right font-mono">€${(item.stockSale * item.price).toFixed(2)}</td>
+                                            </tr>
+                                        `).join('')}
+                                        <tr class="bg-slate-800/30 font-bold text-white">
+                                            <td class="p-4" colspan="3">TOTAL</td>
+                                            <td class="p-4 text-right font-mono">€${snacksTotal.toFixed(2)}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+                if (isAuthReady) setupLedger();
+            }
+
+            function renderProducts(container) {
+                const colors = {
+                    'Allmer Comics': 'bg-red-900/20 border-red-500/20',
+                    'Allmer Films': 'bg-blue-900/20 border-blue-500/20',
+                    'Allmer Music': 'bg-yellow-900/20 border-yellow-500/20',
+                    'Allmer Games': 'bg-green-900/20 border-green-500/20',
+                    'Allmer Journals': 'bg-amber-950/40 border-amber-700/20',
+                    'Allmer Snacks': 'bg-pink-900/20 border-pink-500/20'
+                };
+
+                container.innerHTML = `
+                <div class="max-w-4xl mx-auto mt-8">
+                    <h2 class="text-3xl font-bold text-sa-blue mb-10 text-center">Products</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        ${Object.entries(catalogData).map(([category, items]) => `
+                            <div class="dashboard-card p-6 ${colors[category] || ''}">
+                                <h3 class="text-xl font-bold text-white mb-4 border-b border-slate-700 pb-2">${category}</h3>
+                                <ul class="space-y-2">
+                                    ${items.map(item => `
+                                        <li>
+                                            <a href="#" class="block group">
+                                                <span class="text-slate-500 font-mono text-xs mr-2 group-hover:text-sa-blue transition-colors">${item.id}</span>
+                                                <span class="text-slate-300 group-hover:text-white transition-colors">${item.title}</span>
+                                            </a>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            }
+
+            function renderEvents(container) {
+                container.innerHTML = `
+                <div class="max-w-4xl mx-auto mt-8">
+                    <h2 class="text-3xl font-bold text-sa-blue mb-10 text-center">Upcoming Events</h2>
+                    
+                    <div class="grid grid-cols-1 gap-6">
+                        ${eventsData.map(event => `
+                            <div class="dashboard-card p-6 flex flex-col md:flex-row justify-between items-center hover:bg-slate-800/50 transition-all">
+                                <div class="mb-4 md:mb-0">
+                                    <h3 class="text-2xl font-bold text-white mb-2">${event.name}</h3>
+                                    <div class="flex flex-wrap gap-4 text-sm text-slate-400">
+                                        <span class="flex items-center gap-1">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                            ${event.date}
+                                        </span>
+                                        <span class="flex items-center gap-1">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                            ${event.location} (${event.region})
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-center md:text-right bg-slate-900/50 p-3 rounded-lg border border-slate-700 min-w-[140px]">
+                                    <span class="block text-xs text-slate-500 uppercase font-bold tracking-wider">Est. Attendance</span>
+                                    <span class="block text-xl font-mono font-bold text-sa-blue">${event.attendance}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            }
+
+            function renderBrands(container) {
+                const brands = dictionaryData.filter(item => item.type === 'Brand');
+                container.innerHTML = `
+                <div class="max-w-4xl mx-auto mt-8">
+                    <h2 class="text-3xl font-bold text-sa-blue mb-10 text-center">Brands</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        ${brands.map(brand => `
+                            <div class="dashboard-card p-6 flex flex-col justify-between hover:bg-slate-800/50 transition-all">
+                                <div>
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3 class="text-2xl font-bold text-white">${brand.name}</h3>
+                                        ${brand.website ? `<a href="https://${brand.website}" target="_blank" class="text-xs text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-2 py-1 transition-all">Visit Website ↗</a>` : ''}
+                                    </div>
+                                    <p class="text-slate-400 text-sm mb-4">${brand.description}</p>
+                                    
+                                    ${brand.studios ? `
+                                        <div class="flex flex-wrap gap-2 mt-2">
+                                            ${brand.studios.map(studio => `
+                                                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700">${studio.replace('Allmer ', '')}</span>
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-slate-800">
+                                    <span class="text-xs font-bold text-sa-blue uppercase tracking-wider">Brand Identity</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            }
+
+            function renderDictionary(container) {
+                container.innerHTML = `
+                <div class="max-w-4xl mx-auto mt-8">
+                    <h2 class="text-3xl font-bold text-sa-blue mb-8 text-center">IP Dictionary</h2>
+                    
+                    <div class="mb-8">
+                        <input type="text" id="dict-search" onkeyup="filterDictionary()" placeholder="Search for Brands, Studios, or Locations..." 
+                            class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white focus:border-sa-blue focus:outline-none transition-colors shadow-lg">
+                    </div>
+
+                    <div id="dict-list" class="space-y-4">
+                        ${dictionaryData.map(item => `
+                            <div class="dict-item dashboard-card p-6 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-slate-800/50 transition-all">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <h3 class="text-xl font-bold text-white">${item.name}</h3>
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${item.type === 'Studio' ? 'bg-purple-900/30 text-purple-400 border-purple-800' :
+                        item.type === 'Brand' ? 'bg-blue-900/30 text-blue-400 border-blue-800' :
+                            item.type === 'Location' ? 'bg-green-900/30 text-green-400 border-green-800' :
+                                item.type === 'Concept' ? 'bg-teal-900/30 text-teal-400 border-teal-800' :
+                                    'bg-slate-800 text-slate-400 border-slate-700'
+                    }">${item.type}</span>
+                                    </div>
+                                    <p class="text-slate-400 text-sm">${item.description}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            }
+
+            window.filterDictionary = function () {
+                const input = document.getElementById('dict-search');
+                const filter = input.value.toUpperCase();
+                const container = document.getElementById('dict-list');
+                const items = container.getElementsByClassName('dict-item');
+
+                for (let i = 0; i < items.length; i++) {
+                    const txtValue = items[i].textContent || items[i].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        items[i].style.display = "";
+                    } else {
+                        items[i].style.display = "none";
+                    }
+                }
+            }
+
+            // --- SUB PAGE LOGIC ---
+            window.showSubPage = function (pageId, data = null) {
+                const main = document.getElementById('main-content');
+                const sub = document.getElementById('sub-page-container');
+
+                main.classList.add('hidden');
+                sub.classList.remove('hidden');
+
+                if (pageId === 'communications') {
+                    renderCommunicationsPage(sub);
+                } else if (pageId === 'region') {
+                    renderRegionPage(sub, data);
+                }
+            }
+
+            window.closeSubPage = function () {
+                const main = document.getElementById('main-content');
+                const sub = document.getElementById('sub-page-container');
+
+                sub.classList.add('hidden');
+                main.classList.remove('hidden');
+            }
+
+            function renderCommunicationsPage(container) {
+                container.innerHTML = `
+                <div class="mb-8 flex items-center">
+                    <button onclick="closeSubPage()" class="mr-4 p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </button>
+                    <h2 class="text-3xl font-display font-bold text-white">Communications</h2>
+                </div>
+
+                <div class="bg-surface border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-900/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-800">
+                                    <th class="p-4 font-semibold">Username</th>
+                                    <th class="p-4 font-semibold">Full Name</th>
+                                    <th class="p-4 font-semibold">Website</th>
+                                    <th class="p-4 font-semibold">Platforms</th>
+                                    <th class="p-4 font-semibold">Subscribers</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800">
+                                ${communicationsData.map(item => `
+                                    <tr class="hover:bg-slate-800/30 transition-colors">
+                                        <td class="p-4">
+                                            <a href="${item.url}" target="_blank" class="text-sa-blue font-bold hover:text-white hover:underline transition-colors">
+                                                ${item.handle}
+                                            </a>
+                                        </td>
+                                        <td class="p-4 text-slate-300 font-medium">${item.name}</td>
+                                        <td class="p-4">
+                                            ${item.website ? `<a href="https://${item.website}" target="_blank" class="text-slate-400 hover:text-white hover:underline transition-colors">${item.website}</a>` : '<span class="text-slate-600">--</span>'}
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="flex gap-3">
+                                                ${Object.entries(item.platforms).map(([plat, active]) => {
+                    if (!active) return '';
+                    const username = item.handle.replace('@', '');
+                    let url = '#';
+                    if (plat === 'YouTube') url = `https://www.youtube.com/${item.handle}`;
+                    else if (plat === 'Instagram') url = `https://www.instagram.com/${username}`;
+                    else if (plat === 'Threads') url = `https://www.threads.net/@${username}`;
+                    else if (plat === 'X') url = `https://x.com/${username}`;
+
+                    return `
+                                                    <a href="${url}" target="_blank" class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white hover:border-slate-500 transition-all" title="${plat}">
+                                                        ${plat}
+                                                        <svg class="ml-1 w-3 h-3 text-status-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    </a>
+                                                `}).join('')}
+                                            </div>
+                                        </td>
+                                        <td class="p-4 text-slate-500 italic">--</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            }
+
+            function renderRegionPage(container, regionName) {
+                const countries = Object.entries(countryData).filter(([_, data]) => data.region === regionName);
+
+                container.innerHTML = `
+                <div class="mb-8 flex items-center">
+                    <button onclick="closeSubPage()" class="mr-4 p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </button>
+                    <h2 class="text-3xl font-display font-bold text-white">${regionName} Operations</h2>
+                </div>
+
+                ${countries.length === 0 ? `<div class="text-center text-slate-500 py-20">No active operations in this region.</div>` : `
+                    <div class="bg-surface border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl max-w-6xl mx-auto">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                            ${countries.map(([name, data]) => `
+                                <button class="country-btn flex flex-col items-center justify-center p-4 rounded-xl border-status-${data.presenceLevel} status-${data.presenceLevel} h-32 w-full bg-slate-900/50 hover:bg-slate-800 transition-all" onclick="showCountryModal('${name}')">
+                                    <span class="text-4xl mb-3 filter drop-shadow-lg">${data.flag}</span>
+                                    <span class="text-sm text-slate-200 font-bold leading-tight">${name}</span>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `}
+            `;
+            }
+
+            // --- INTERACTIVITY ---
+            window.toggleDivision = function (el) {
+                const list = el.querySelector('div.hidden, div.block');
+                const text = el.querySelector('p');
+                if (list.classList.contains('hidden')) {
+                    list.classList.remove('hidden');
+                    list.classList.add('block');
+                    text.textContent = '(Click to Collapse ▴)';
+                } else {
+                    list.classList.add('hidden');
+                    list.classList.remove('block');
+                    text.textContent = '(Click to Expand ▾)';
+                }
+            };
+
+            window.showModal = function (title, content = null) {
+                // Intercept Communications
+                if (title === 'Communications') {
+                    showSubPage('communications');
+                    return;
+                }
+                // Intercept Regions
+                if (['America', 'Europe', 'Africa', 'Asia'].includes(title)) {
+                    showSubPage('region', title);
+                    return;
+                }
+
+                const modal = document.getElementById('detail-modal');
+                const backdrop = document.getElementById('modal-backdrop');
+                const panel = document.getElementById('modal-panel');
+
+                document.getElementById('modal-title').textContent = title;
+                document.getElementById('modal-body').innerHTML = content || `<p class="text-slate-300">Details for ${title} coming soon.</p>`;
+
+                modal.classList.remove('hidden');
+                // Trigger animation
+                setTimeout(() => {
+                    backdrop.classList.remove('opacity-0');
+                    panel.classList.remove('opacity-0', 'scale-95');
+                    panel.classList.add('opacity-100', 'scale-100');
+                }, 10);
+            };
+
+            window.closeModal = function () {
+                const modal = document.getElementById('detail-modal');
+                const backdrop = document.getElementById('modal-backdrop');
+                const panel = document.getElementById('modal-panel');
+
+                backdrop.classList.add('opacity-0');
+                panel.classList.remove('opacity-100', 'scale-100');
+                panel.classList.add('opacity-0', 'scale-95');
+
+                setTimeout(() => modal.classList.add('hidden'), 200);
+            };
+
+            window.showCountryModal = function (name) {
+                const data = countryData[name];
+                const color = data.presenceLevel === 'green' ? 'text-status-green' : (data.presenceLevel === 'yellow' ? 'text-status-yellow' : 'text-status-red');
+
+                const html = `
+                <div class="space-y-6">
+                    <!-- General Information -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white border-b border-slate-700 pb-2 mb-3">General Information</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-slate-900 p-3 rounded border border-slate-800">
+                                <p class="text-xs text-slate-500 uppercase font-bold">Population</p>
+                                <p class="text-white font-mono">${data.population}</p>
+                            </div>
+                            <div class="bg-slate-900 p-3 rounded border border-slate-800">
+                                <p class="text-xs text-slate-500 uppercase font-bold mb-1">Largest Cities</p>
+                                <ul class="text-sm text-slate-300 space-y-1">
+                                    ${data.largestCities.map(city => `<li class="flex justify-between"><span>${city.name}</span><span class="text-slate-500">${city.pop}</span></li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Operational Status -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white border-b border-slate-700 pb-2 mb-3">Operational Status</h4>
+                        <div class="bg-slate-900 p-4 rounded border border-slate-800">
+                            <p class="${color} font-bold text-lg capitalize mb-1">${data.presenceLevel === 'red' ? 'Digital / Partners Only' : (data.presenceLevel === 'yellow' ? 'Active Partners' : 'Physical Presence')}</p>
+                            <p class="text-slate-300 text-sm">${data.note}</p>
+                        </div>
+                    </div>
+
+                    <!-- Key Operations -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white border-b border-slate-700 pb-2 mb-3">Key Operations</h4>
+                        <div class="space-y-3">
+                            <div class="bg-slate-900 p-3 rounded border border-slate-800">
+                                <p class="text-xs text-slate-500 uppercase font-bold">Legal Entities</p>
+                                <p class="text-white">${data.entities.join(', ')}</p>
+                            </div>
+                            
+                            ${data.partners.length ? `
+                                <div class="bg-slate-900 p-3 rounded border border-slate-800">
+                                    <p class="text-xs text-slate-500 uppercase font-bold">Strategic Partners</p>
+                                    <ul class="list-disc pl-4 text-slate-300 text-sm mt-1">${data.partners.map(p => `<li>${p}</li>`).join('')}</ul>
+                                </div>
+                            ` : ''}
+
+                            ${data.realEstate > 0 ? `
+                                <div class="bg-slate-900 p-3 rounded border border-slate-800">
+                                    <p class="text-xs text-slate-500 uppercase font-bold">Real Estate Holdings (${data.realEstate})</p>
+                                    <ul class="list-disc pl-4 text-slate-300 text-sm mt-1">${data.realEstateDetails.map(d => `<li>${d.name} <span class="text-slate-500">(${d.type})</span></li>`).join('')}</ul>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+                showModal(`${data.flag} ${name}`, html);
+            };
+
+            // --- LEDGER ---
+            function setupLedger() {
+                if (!db || !userId) return;
+                const q = query(collection(db, LEDGER_PATH), where("accountId", "==", ACCOUNT_ID));
+                onSnapshot(q, (snapshot) => {
+                    const txs = [];
+                    snapshot.forEach(doc => txs.push(doc.data()));
+                    txs.sort((a, b) => (a.timestamp?.toMillis?.() || 0) - (b.timestamp?.toMillis?.() || 0));
+
+                    let bal = 0;
+                    const rows = txs.map(tx => {
+                        bal += (tx.debit || 0) - (tx.credit || 0);
+                        return `<div class="flex justify-between py-1 border-b border-slate-800"><span>${tx.description}</span><span class="text-sa-blue">${bal.toFixed(2)}€</span></div>`;
+                    }).join('');
+                    document.getElementById('ledger-list').innerHTML = rows || 'No transactions.';
+                });
+            }
+
+            window.addDeposit = async function () {
+                if (!db) return alert("Database not ready");
+                await addDoc(collection(db, LEDGER_PATH), {
+                    accountId: ACCOUNT_ID, description: 'Quick Deposit', debit: 5, credit: 0, timestamp: serverTimestamp(), userId
+                });
+            };
+
+            // Init
+            initFirebase();
+            switchTab('structure');
+
+
+        </script>
+
+        <!-- Footer -->
+        <footer class="border-t border-slate-800 mt-20 py-6">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <p class="text-slate-500 text-sm">
+                    <span class="text-slate-400 font-semibold">Simon Allmer Portfolio</span> — Private Document. Not for
+                    sharing.
+                </p>
+            </div>
+        </footer>
+    </div>
+    <!-- End Main App -->
+</body>
+
+</html>

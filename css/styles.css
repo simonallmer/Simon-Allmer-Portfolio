@@ -1,0 +1,100 @@
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f172a; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #334155; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #475569; 
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Nav Tab Styles */
+.nav-tab {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    color: #94a3b8; /* slate-400 */
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-tab:hover {
+    color: #e2e8f0; /* slate-200 */
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-tab.active {
+    color: #fff;
+    background: rgba(59, 130, 246, 0.2); /* primary/20 */
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Org Chart Node */
+.org-node {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.org-node:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    border-color: #60a5fa; /* blue-400 */
+}
+
+/* Country Button */
+.country-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.country-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom right, rgba(255,255,255,0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.country-btn:hover::after {
+    opacity: 1;
+}
+
+/* Modal Animation Classes */
+.modal-open {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.modal-panel-open {
+    transform: scale(1) !important;
+}
+
+/* Traffic Light Glows */
+.tl-green {
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+}
+.tl-yellow {
+    box-shadow: 0 0 15px rgba(250, 204, 21, 0.2);
+}
+.tl-red {
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
+}
