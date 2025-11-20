@@ -1330,6 +1330,9 @@
             }
 
             function renderDictionary(container) {
+                // Sort dictionary alphabetically by name
+                const sortedData = [...dictionaryData].sort((a, b) => a.name.localeCompare(b.name));
+
                 container.innerHTML = `
                 <div class="max-w-4xl mx-auto mt-8">
                     <h2 class="text-3xl font-bold text-sa-blue mb-8 text-center">IP Dictionary</h2>
@@ -1340,7 +1343,7 @@
                     </div>
 
                     <div id="dict-list" class="space-y-4">
-                        ${dictionaryData.map(item => `
+                        ${sortedData.map(item => `
                             <div class="dict-item dashboard-card p-6 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-slate-800/50 transition-all">
                                 <div>
                                     <div class="flex items-center gap-3 mb-1">
