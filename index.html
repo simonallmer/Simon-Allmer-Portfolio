@@ -276,6 +276,8 @@
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('products')">Products</button>
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
+                    onclick="switchTab('processes')">Processes</button>
+                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('brands')">Brands</button>
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('events')">Events</button>
@@ -634,14 +636,14 @@
                 { name: 'Allmer Journals', type: 'Studio', description: 'Coming soon to follow' },
                 { name: 'Allmer Snacks', type: 'Studio', description: 'Coming soon to follow' },
 
-                { name: 'Society Review', type: 'Brand', description: 'Social commentary journal.', studios: ['Allmer Journals'], website: 'societyreview.org' },
-                { name: 'Chronicle', type: 'Brand', description: 'Historical records and storytelling.', studios: ['Allmer Journals'] },
                 { name: 'Futory', type: 'Brand', description: 'Future-focused narrative universe.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'], website: 'futory.com' },
                 { name: 'Lunyra', type: 'Brand', description: 'Fantasy world building.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'], website: 'lunyra.com' },
                 { name: 'American Portrait', type: 'Brand', description: 'Cultural exploration project.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'] },
+                { name: 'Detective Noname', type: 'Brand', description: 'Mystery franchise.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'] },
+                { name: 'Society Review', type: 'Brand', description: 'Social commentary journal.', studios: ['Allmer Journals'], website: 'societyreview.org' },
+                { name: 'Chronicle', type: 'Brand', description: 'Historical records and storytelling.', studios: ['Allmer Journals'] },
                 { name: 'Seven Wonders', type: 'Brand', description: 'Gaming experience.', studios: ['Allmer Games', 'Allmer Snacks'] },
                 { name: 'Metropole', type: 'Brand', description: 'Snack brand.', studios: ['Allmer Snacks'] },
-                { name: 'Detective Noname', type: 'Brand', description: 'Mystery franchise.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'] },
                 { name: 'Believe', type: 'Brand', description: 'Gaming experience.', studios: ['Allmer Games'], website: 'believegame.com' },
                 { name: 'Elements', type: 'Brand', description: 'Gaming experience.', studios: ['Allmer Games'] },
 
@@ -701,7 +703,8 @@
                 ],
                 'Allmer Music': [
                     { id: 'M001', title: 'American Portrait' },
-                    { id: 'M002', title: 'Sin [TBA]' }
+                    { id: 'M002', title: 'Sin [TBA]' },
+                    { id: 'M003', title: 'Futory [TBA]' }
                 ],
                 'Allmer Games': [
                     { id: 'G001', title: 'Pyramid' },
@@ -716,7 +719,9 @@
                     { id: 'G010', title: 'Statue' },
                     { id: 'G011', title: 'Mausoleum' },
                     { id: 'G012', title: 'Colossus' },
-                    { id: 'G013', title: 'Pharos' }
+                    { id: 'G013', title: 'Pharos' },
+                    { id: 'G014', title: 'Capital' },
+                    { id: 'G015', title: 'Equilibrium' }
                 ],
                 'Allmer Journals': [
                     { id: 'J001', title: 'Simon Allmer World' },
@@ -730,6 +735,35 @@
                     { id: 'S003', title: 'Hot Ice [TBA]' }
                 ]
             };
+
+            const processesData = [
+                {
+                    id: 'P001',
+                    title: 'Making Ham Sandwich',
+                    description: 'Standard operating procedure for customer order fulfillment.',
+                    steps: [
+                        { type: 'event', label: 'Customer Order Received' },
+                        { type: 'function', label: 'Check Ingredient Availability' },
+                        { type: 'xor', label: 'XOR' },
+                        {
+                            type: 'branch', options: [
+                                [
+                                    { type: 'event', label: 'Ingredients Missing' },
+                                    { type: 'function', label: 'Inform Customer' },
+                                    { type: 'event', label: 'Order Cancelled' }
+                                ],
+                                [
+                                    { type: 'event', label: 'Ingredients Available' },
+                                    { type: 'function', label: 'Toast Bread' },
+                                    { type: 'function', label: 'Add Ham & Cheese' },
+                                    { type: 'function', label: 'Serve Sandwich' },
+                                    { type: 'event', label: 'Order Fulfilled' }
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ];
 
             let inventoryData = {
                 games: [
@@ -814,6 +848,7 @@
                     if (tabName === 'home') renderHome(main);
                     else if (tabName === 'projects') renderProjects(main);
                     else if (tabName === 'products') renderProducts(main);
+                    else if (tabName === 'processes') renderProcesses(main);
                     else if (tabName === 'brands') renderBrands(main);
                     else if (tabName === 'events') renderEvents(main);
                     else if (tabName === 'financials') renderFinancials(main);
@@ -1261,6 +1296,87 @@
                     </div>
                 </div>
             `;
+            }
+
+            function renderProcesses(container) {
+                container.innerHTML = `
+                <div class="max-w-4xl mx-auto mt-8">
+                    <h2 class="text-3xl font-bold text-sa-blue mb-10 text-center">Business Processes</h2>
+                    
+                    <div class="grid grid-cols-1 gap-6">
+                        ${processesData.map(process => `
+                            <div class="dashboard-card p-6 cursor-pointer hover:bg-slate-800/50 transition-all group" onclick="renderEPC('${process.id}')">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-sa-blue transition-colors">${process.title}</h3>
+                                        <p class="text-slate-400">${process.description}</p>
+                                    </div>
+                                    <div class="text-sa-blue opacity-0 group-hover:opacity-100 transition-opacity">
+                                        View Diagram →
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                `;
+            }
+
+            window.renderEPC = function (processId) {
+                const process = processesData.find(p => p.id === processId);
+                if (!process) return;
+
+                const main = document.getElementById('main-content');
+                main.innerHTML = `
+                <div class="max-w-4xl mx-auto mt-8">
+                    <div class="flex items-center mb-8">
+                        <button onclick="switchTab('processes')" class="mr-4 text-slate-400 hover:text-white transition-colors">← Back</button>
+                        <h2 class="text-3xl font-bold text-sa-blue text-center flex-1">${process.title} (EPC)</h2>
+                    </div>
+                    
+                    <div class="bg-slate-900/50 border border-slate-800 p-8 rounded-xl overflow-x-auto flex flex-col items-center space-y-4 min-h-[600px]">
+                        ${renderEPCNodes(process.steps)}
+                    </div>
+                </div>
+                `;
+            }
+
+            function renderEPCNodes(nodes) {
+                return nodes.map(node => {
+                    if (node.type === 'event') {
+                        return `
+                            <div class="epc-shape hexagon bg-pink-900/20 border-2 border-pink-500/50 text-pink-200 font-bold text-xs p-2 text-center w-32 h-16 flex items-center justify-center relative z-10" style="clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);">
+                                ${node.label}
+                            </div>
+                            <div class="h-8 w-0.5 bg-slate-600"></div>
+                        `;
+                    } else if (node.type === 'function') {
+                        return `
+                            <div class="epc-shape rounded-lg bg-green-900/20 border-2 border-green-500/50 text-green-200 font-bold text-xs p-2 text-center w-32 h-12 flex items-center justify-center relative z-10">
+                                ${node.label}
+                            </div>
+                            <div class="h-8 w-0.5 bg-slate-600"></div>
+                        `;
+                    } else if (node.type === 'xor') {
+                        return `
+                            <div class="epc-shape rounded-full bg-slate-800 border-2 border-slate-600 text-slate-300 font-bold text-xs w-8 h-8 flex items-center justify-center relative z-10">
+                                XOR
+                            </div>
+                            <div class="h-8 w-0.5 bg-slate-600"></div>
+                        `;
+                    } else if (node.type === 'branch') {
+                        return `
+                            <div class="flex justify-center gap-8 w-full">
+                                ${node.options.map(branch => `
+                                    <div class="flex flex-col items-center">
+                                        <div class="h-4 w-0.5 bg-slate-600 -mt-4 mb-4"></div>
+                                        ${renderEPCNodes(branch)}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    }
+                }).join('').replace(/<div class="h-8 w-0.5 bg-slate-600"><\/div>$/, ''); // Remove trailing connector
             }
 
             function renderEvents(container) {
