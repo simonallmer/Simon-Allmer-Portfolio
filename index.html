@@ -276,8 +276,6 @@
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('products')">Products</button>
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
-                    onclick="switchTab('processes')">Processes</button>
-                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('brands')">Brands</button>
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('events')">Events</button>
@@ -471,11 +469,47 @@
                     largestCities: [{ name: 'Sydney', pop: '5.3M' }, { name: 'Melbourne', pop: '5.0M' }, { name: 'Brisbane', pop: '2.5M' }],
                     cities: ['Sydney'], entities: ['Allmer AU'], realEstate: 0, partners: [], note: 'Oceania logistics.', presenceLevel: 'red'
                 },
+
+                'Morocco': {
+                    region: 'Africa', flag: '🇲🇦', population: '38.2 Million',
+                    largestCities: [{ name: 'Casablanca', pop: '4.0M' }, { name: 'Rabat', pop: '2.0M' }, { name: 'Tangier', pop: '1.4M' }],
+                    cities: ['Casablanca', 'Rabat'], entities: ['Allmer MA'], realEstate: 0, partners: [], note: 'Gateway to North Africa and Europe.', presenceLevel: 'red'
+                },
+                'Egypt': {
+                    region: 'Africa', flag: '🇪🇬', population: '116.5 Million',
+                    largestCities: [{ name: 'Cairo', pop: '10.3M' }, { name: 'Giza', pop: '9.6M' }, { name: 'Alexandria', pop: '5.7M' }],
+                    cities: ['Cairo', 'Alexandria'], entities: ['Allmer EG'], realEstate: 0, partners: [], note: 'North African regional office.', presenceLevel: 'red'
+                },
+                'Ghana': {
+                    region: 'Africa', flag: '🇬🇭', population: '34.7 Million',
+                    largestCities: [{ name: 'Accra', pop: '4.4M' }, { name: 'Kumasi', pop: '3.9M' }, { name: 'Tamale', pop: '0.5M' }],
+                    cities: ['Accra'], entities: ['Allmer GH'], realEstate: 0, partners: [], note: 'West African operational support.', presenceLevel: 'red'
+                },
+                'Nigeria': {
+                    region: 'Africa', flag: '🇳🇬', population: '232.7 Million',
+                    largestCities: [{ name: 'Lagos', pop: '16.5M' }, { name: 'Kano', pop: '4.5M' }, { name: 'Ibadan', pop: '4.0M' }],
+                    cities: ['Lagos', 'Abuja'], entities: ['Allmer NG'], realEstate: 0, partners: [], note: 'Key market for West African expansion.', presenceLevel: 'red'
+                },
+                'Ethiopia': {
+                    region: 'Africa', flag: '🇪🇹', population: '132.1 Million',
+                    largestCities: [{ name: 'Addis Ababa', pop: '3.9M' }, { name: 'Dire Dawa', pop: '1.3M' }, { name: 'Mek\'ele', pop: '0.5M' }],
+                    cities: ['Addis Ababa'], entities: ['Allmer ET'], realEstate: 0, partners: [], note: 'Emerging market focus.', presenceLevel: 'red'
+                },
+                'Kenya': {
+                    region: 'Africa', flag: '🇰🇪', population: '56.4 Million',
+                    largestCities: [{ name: 'Nairobi', pop: '5.5M' }, { name: 'Mombasa', pop: '1.5M' }, { name: 'Kisumu', pop: '0.4M' }],
+                    cities: ['Nairobi', 'Mombasa'], entities: ['Allmer KE'], realEstate: 0, partners: [], note: 'East African technology and innovation hub.', presenceLevel: 'red'
+                },
+                'South Africa': {
+                    region: 'Africa', flag: '🇿🇦', population: '63.0 Million',
+                    largestCities: [{ name: 'Johannesburg', pop: '6.3M' }, { name: 'Cape Town', pop: '5.0M' }, { name: 'Durban', pop: '3.1M' }],
+                    cities: ['Johannesburg', 'Cape Town'], entities: ['Allmer ZA'], realEstate: 0, partners: [], note: 'Strategic hub for Southern Africa operations.', presenceLevel: 'red'
+                },
             };
 
             const subdivisions = {
                 'Allmer Studios': ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games', 'Allmer Journals', 'Allmer Snacks'],
-                'Brands': ['Franchise Development', 'Extensions', 'Merchandise', 'Communications'],
+                'Allmer Brands': ['Franchise Development', 'Extensions', 'Merchandise', 'Communications'],
                 'Simon Allmer Stores': ['Website', 'Apple', 'Google', 'Microsoft'],
                 'Simon Allmer Centers': ['America', 'Europe', 'Africa', 'Asia']
             };
@@ -738,34 +772,6 @@
                 ]
             };
 
-            const processesData = [
-                {
-                    id: 'P001',
-                    title: 'Making Ham Sandwich',
-                    description: 'Standard operating procedure for customer order fulfillment.',
-                    steps: [
-                        { type: 'event', label: 'Customer Order Received' },
-                        { type: 'function', label: 'Check Ingredient Availability' },
-                        { type: 'xor', label: 'XOR' },
-                        {
-                            type: 'branch', options: [
-                                [
-                                    { type: 'event', label: 'Ingredients Missing' },
-                                    { type: 'function', label: 'Inform Customer' },
-                                    { type: 'event', label: 'Order Cancelled' }
-                                ],
-                                [
-                                    { type: 'event', label: 'Ingredients Available' },
-                                    { type: 'function', label: 'Toast Bread' },
-                                    { type: 'function', label: 'Add Ham & Cheese' },
-                                    { type: 'function', label: 'Serve Sandwich' },
-                                    { type: 'event', label: 'Order Fulfilled' }
-                                ]
-                            ]
-                        }
-                    ]
-                }
-            ];
 
             let inventoryData = {
                 games: [
@@ -850,7 +856,6 @@
                     if (tabName === 'home') renderHome(main);
                     else if (tabName === 'projects') renderProjects(main);
                     else if (tabName === 'products') renderProducts(main);
-                    else if (tabName === 'processes') renderProcesses(main);
                     else if (tabName === 'brands') renderBrands(main);
                     else if (tabName === 'events') renderEvents(main);
                     else if (tabName === 'financials') renderFinancials(main);
@@ -888,7 +893,7 @@
                                     View Products
                                 </button>
                             ` : ''}
-                            ${title === 'Brands' ? `
+                            ${title === 'Allmer Brands' ? `
                                 <button class="mt-2 text-xs font-bold text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-3 py-1 transition-all" onclick="event.stopPropagation(); switchTab('brands')">
                                     View Brands
                                 </button>
@@ -1300,86 +1305,6 @@
             `;
             }
 
-            function renderProcesses(container) {
-                container.innerHTML = `
-                <div class="max-w-4xl mx-auto mt-8">
-                    <h2 class="text-3xl font-bold text-sa-blue mb-10 text-center">Business Processes</h2>
-                    
-                    <div class="grid grid-cols-1 gap-6">
-                        ${processesData.map(process => `
-                            <div class="dashboard-card p-6 cursor-pointer hover:bg-slate-800/50 transition-all group" onclick="renderEPC('${process.id}')">
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-sa-blue transition-colors">${process.title}</h3>
-                                        <p class="text-slate-400">${process.description}</p>
-                                    </div>
-                                    <div class="text-sa-blue opacity-0 group-hover:opacity-100 transition-opacity">
-                                        View Diagram →
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-                `;
-            }
-
-            window.renderEPC = function (processId) {
-                const process = processesData.find(p => p.id === processId);
-                if (!process) return;
-
-                const main = document.getElementById('main-content');
-                main.innerHTML = `
-                <div class="max-w-4xl mx-auto mt-8">
-                    <div class="flex items-center mb-8">
-                        <button onclick="switchTab('processes')" class="mr-4 text-slate-400 hover:text-white transition-colors">← Back</button>
-                        <h2 class="text-3xl font-bold text-sa-blue text-center flex-1">${process.title} (EPC)</h2>
-                    </div>
-                    
-                    <div class="bg-slate-900/50 border border-slate-800 p-8 rounded-xl overflow-x-auto flex flex-col items-center space-y-4 min-h-[600px]">
-                        ${renderEPCNodes(process.steps)}
-                    </div>
-                </div>
-                `;
-            }
-
-            function renderEPCNodes(nodes) {
-                return nodes.map(node => {
-                    if (node.type === 'event') {
-                        return `
-                            <div class="epc-shape hexagon bg-pink-900/20 border-2 border-pink-500/50 text-pink-200 font-bold text-xs p-2 text-center w-32 h-16 flex items-center justify-center relative z-10" style="clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);">
-                                ${node.label}
-                            </div>
-                            <div class="h-8 w-0.5 bg-slate-600"></div>
-                        `;
-                    } else if (node.type === 'function') {
-                        return `
-                            <div class="epc-shape rounded-lg bg-green-900/20 border-2 border-green-500/50 text-green-200 font-bold text-xs p-2 text-center w-32 h-12 flex items-center justify-center relative z-10">
-                                ${node.label}
-                            </div>
-                            <div class="h-8 w-0.5 bg-slate-600"></div>
-                        `;
-                    } else if (node.type === 'xor') {
-                        return `
-                            <div class="epc-shape rounded-full bg-slate-800 border-2 border-slate-600 text-slate-300 font-bold text-xs w-8 h-8 flex items-center justify-center relative z-10">
-                                XOR
-                            </div>
-                            <div class="h-8 w-0.5 bg-slate-600"></div>
-                        `;
-                    } else if (node.type === 'branch') {
-                        return `
-                            <div class="flex justify-center gap-8 w-full">
-                                ${node.options.map(branch => `
-                                    <div class="flex flex-col items-center">
-                                        <div class="h-4 w-0.5 bg-slate-600 -mt-4 mb-4"></div>
-                                        ${renderEPCNodes(branch)}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        `;
-                    }
-                }).join('').replace(/<div class="h-8 w-0.5 bg-slate-600"><\/div>$/, ''); // Remove trailing connector
-            }
 
             function renderEvents(container) {
                 container.innerHTML = `
@@ -1415,33 +1340,48 @@
 
             function renderBrands(container) {
                 const brands = dictionaryData.filter(item => item.type === 'Brand');
+                const multiStudioBrands = brands.filter(b => b.studios && b.studios.length > 1);
+                const singleStudioBrands = brands.filter(b => !b.studios || b.studios.length <= 1);
+
+                const renderBrandCard = (brand) => `
+                    <div class="dashboard-card p-6 flex flex-col justify-between hover:bg-slate-800/50 transition-all">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-bold text-white">${brand.name}</h3>
+                                ${brand.website ? `<a href="https://${brand.website}" target="_blank" class="text-xs text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-2 py-1 transition-all">${brand.website} ↗</a>` : ''}
+                            </div>
+                            <p class="text-slate-400 text-sm mb-4">${brand.description}</p>
+                            
+                            ${brand.studios ? `
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    ${brand.studios.map(studio => `
+                                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700">${studio.replace('Allmer ', '')}</span>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-800">
+                            <span class="text-xs font-bold text-sa-blue uppercase tracking-wider">Brand Identity</span>
+                        </div>
+                    </div>
+                `;
+
                 container.innerHTML = `
                 <div class="max-w-4xl mx-auto mt-8">
                     <h2 class="text-3xl font-bold text-sa-blue mb-10 text-center">Brands</h2>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        ${brands.map(brand => `
-                            <div class="dashboard-card p-6 flex flex-col justify-between hover:bg-slate-800/50 transition-all">
-                                <div>
-                                    <div class="flex justify-between items-start mb-2">
-                                        <h3 class="text-2xl font-bold text-white">${brand.name}</h3>
-                                        ${brand.website ? `<a href="https://${brand.website}" target="_blank" class="text-xs text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-2 py-1 transition-all">${brand.website} ↗</a>` : ''}
-                                    </div>
-                                    <p class="text-slate-400 text-sm mb-4">${brand.description}</p>
-                                    
-                                    ${brand.studios ? `
-                                        <div class="flex flex-wrap gap-2 mt-2">
-                                            ${brand.studios.map(studio => `
-                                                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700">${studio.replace('Allmer ', '')}</span>
-                                            `).join('')}
-                                        </div>
-                                    ` : ''}
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-slate-800">
-                                    <span class="text-xs font-bold text-sa-blue uppercase tracking-wider">Brand Identity</span>
-                                </div>
-                            </div>
-                        `).join('')}
+                    <div class="mb-12">
+                        <h3 class="text-xl font-display font-bold text-white mb-6 border-b border-slate-800 pb-2">Multi Studio Brands</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            ${multiStudioBrands.map(renderBrandCard).join('')}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-display font-bold text-white mb-6 border-b border-slate-800 pb-2">Single Studio Brands</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            ${singleStudioBrands.map(renderBrandCard).join('')}
+                        </div>
                     </div>
                 </div>
             `;
