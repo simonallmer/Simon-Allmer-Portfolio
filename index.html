@@ -646,6 +646,8 @@
                 { name: 'Metropole', type: 'Brand', description: 'Snack brand.', studios: ['Allmer Snacks'] },
                 { name: 'Believe', type: 'Brand', description: 'Gaming experience.', studios: ['Allmer Games'], website: 'believegame.com' },
                 { name: 'Elements', type: 'Brand', description: 'Gaming experience.', studios: ['Allmer Games'] },
+                { name: 'Danger', type: 'Brand', description: 'Multistudio brand.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'], website: 'danger.com' },
+                { name: 'Colbu', type: 'Brand', description: 'Multistudio brand.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'], website: 'colbu.com' },
 
                 { name: 'Piano Voice', type: 'Concept', description: 'Vocal Range of 5 octaves that is balanced throughout the range.' },
                 { name: 'Water Lung', type: 'Concept', description: 'Ability to hold ones breath for at least 5 minutes in a static position.' },
@@ -1423,7 +1425,7 @@
                                 <div>
                                     <div class="flex justify-between items-start mb-2">
                                         <h3 class="text-2xl font-bold text-white">${brand.name}</h3>
-                                        ${brand.website ? `<a href="https://${brand.website}" target="_blank" class="text-xs text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-2 py-1 transition-all">Visit Website ↗</a>` : ''}
+                                        ${brand.website ? `<a href="https://${brand.website}" target="_blank" class="text-xs text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-2 py-1 transition-all">${brand.website} ↗</a>` : ''}
                                     </div>
                                     <p class="text-slate-400 text-sm mb-4">${brand.description}</p>
                                     
