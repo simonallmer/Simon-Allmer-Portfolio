@@ -272,7 +272,7 @@
                 <button class="nav-tab active py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('home')">Home</button>
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
-                    onclick="switchTab('projects')">Projects</button>
+                    onclick="switchTab('studios')">Studios</button>
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('products')">Products</button>
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
@@ -662,6 +662,79 @@
                 }
             ];
 
+            const studiosData = {
+                'Allmer Comics': {
+                    website: 'allmercomics.com',
+                    products: ['Comic Books', 'Graphic Novels', 'Digital Comics'],
+                    technicalInsight: 'Sequential art meets cinematic storytelling. Every panel is crafted with film-quality composition and narrative depth.',
+                    partners: [],
+                    color: '#ef4444',
+                    assets: [],
+                    externalDatabases: [
+                        { name: 'Grand Comics Database', url: 'https://www.comics.org/' },
+                        { name: 'Goodreads', url: 'https://www.goodreads.com/author/show/57946604.Simon_Allmer' }
+                    ]
+                },
+                'Allmer Films': {
+                    website: 'allmerfilms.com',
+                    products: ['Feature Films', 'Short Films', 'Documentaries'],
+                    technicalInsight: 'Independent filmmaking with studio-quality production values. Story-first approach with global distribution reach.',
+                    partners: [],
+                    color: '#3b82f6',
+                    assets: [],
+                    externalDatabases: [
+                        { name: 'IMDb', url: 'https://www.imdb.com/name/nm10559153/' }
+                    ]
+                },
+                'Allmer Music': {
+                    website: 'allmermusic.com',
+                    products: ['Albums', 'Singles', 'Music Videos'],
+                    technicalInsight: 'Genre-fluid artistry combining classical training with modern production techniques. Multi-platform distribution strategy.',
+                    partners: [],
+                    color: '#facc15',
+                    assets: [],
+                    externalDatabases: []
+                },
+                'Allmer Games': {
+                    website: 'allmergames.com',
+                    products: ['Tabletop Games', 'Video Games', 'Toys'],
+                    technicalInsight: 'Storytelling in videogames can be far more sophisticated and/or the console won\'t matter in the future of gaming, our games run on any device.',
+                    partners: ['Paradice (Tabletop Game Events)'],
+                    color: '#22c55e',
+                    assets: [
+                        { name: 'GitHub', url: 'https://github.com/allmergames' },
+                        { name: 'Fusion 360', url: 'https://simonallmer.autodesk360.com' }
+                    ],
+                    externalDatabases: [
+                        { name: 'IMDb', url: 'https://www.imdb.com/name/nm10559153/' },
+                        { name: 'BoardGameGeek', url: 'https://boardgamegeek.com/boardgamepublisher/49179/allmer-games' },
+                        { name: 'VideoGameGeek', url: 'https://videogamegeek.com/wiki/page/company:49179' }
+                    ]
+                },
+                'Allmer Journals': {
+                    website: 'allmerjournals.com',
+                    products: ['Magazines', 'Academic Journals', 'Digital Publications'],
+                    technicalInsight: 'Thought leadership meets accessible journalism. Bridging academia and popular discourse with rigorous editorial standards.',
+                    partners: [],
+                    color: '#92400e',
+                    assets: [],
+                    externalDatabases: [
+                        { name: 'Goodreads', url: 'https://www.goodreads.com/author/show/57946604.Simon_Allmer' }
+                    ]
+                },
+                'Allmer Snacks': {
+                    website: 'allmersnacks.com',
+                    products: ['Candies', 'Beverages', 'Specialty Snacks'],
+                    technicalInsight: 'Artisanal quality at scale. Merging traditional craftsmanship with modern distribution networks.',
+                    partners: ['Zuckerlwerkstatt (Snack Production)'],
+                    color: '#ec4899',
+                    assets: [],
+                    externalDatabases: [
+                        { name: 'Taquitos.net', url: 'https://www.taquitos.net' }
+                    ]
+                }
+            };
+
             const dictionaryData = [
                 { name: 'Allmer Comics', type: 'Studio', description: 'Coming soon to follow' },
                 { name: 'Allmer Films', type: 'Studio', description: 'Coming soon to follow' },
@@ -855,7 +928,7 @@
                 main.style.opacity = '0';
                 setTimeout(() => {
                     if (tabName === 'home') renderHome(main);
-                    else if (tabName === 'projects') renderProjects(main);
+                    else if (tabName === 'studios') renderStudios(main);
                     else if (tabName === 'products') renderProducts(main);
                     else if (tabName === 'brands') renderBrands(main);
                     else if (tabName === 'events') renderEvents(main);
@@ -890,8 +963,8 @@
                             </div>
 
                             ${title === 'Allmer Studios' ? `
-                                <button class="mt-2 text-xs font-bold text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-3 py-1 transition-all" onclick="event.stopPropagation(); switchTab('products')">
-                                    View Products
+                                <button class="mt-2 text-xs font-bold text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-3 py-1 transition-all" onclick="event.stopPropagation(); switchTab('studios')">
+                                    View Studios
                                 </button>
                             ` : ''}
                             ${title === 'Allmer Brands' ? `
@@ -901,6 +974,63 @@
                             ` : ''}
                         </div>
                     `).join('')}
+                </div>
+
+                <!-- Project Tracker Section -->
+                <div class="mb-20">
+                    <div class="flex justify-center mb-8">
+                        <div class="bg-surface-highlight border border-slate-600 px-12 py-3 rounded-lg shadow-lg text-center">
+                            <h2 class="text-xl font-display font-bold text-white">Project Tracker</h2>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-8 max-w-4xl mx-auto">
+                        ${projectData.map(project => `
+                            <div class="dashboard-card p-6">
+                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b border-slate-700 pb-4">
+                                    <div>
+                                        <h3 class="text-2xl font-bold text-white">${project.title}</h3>
+                                        ${project.subtitle ? `<p class="text-slate-400 text-sm">${project.subtitle}</p>` : ''}
+                                    </div>
+                                    <div class="mt-2 md:mt-0 text-right">
+                                        <span class="text-xs text-slate-500 uppercase font-bold">Estimated Budget</span>
+                                        <p class="text-status-green font-mono font-bold">${project.budget}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Kanban Stepper -->
+                                <div class="relative">
+                                    <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-800 -translate-y-1/2 rounded"></div>
+                                    <div class="relative z-10 flex justify-between">
+                                        ${project.steps.map((step, index) => {
+                    let statusColor = 'bg-slate-800 border-slate-600 text-slate-500'; // Pending
+                    let icon = index + 1;
+
+                    if (step.status === 'active') {
+                        statusColor = 'bg-sa-darkblue border-sa-blue text-white shadow-[0_0_15px_rgba(96,165,250,0.5)]';
+                    } else if (step.status === 'done') {
+                        statusColor = 'bg-status-green border-green-400 text-white';
+                        icon = '✓';
+                    }
+
+                    return `
+                                                <div class="flex flex-col items-center group flex-1">
+                                                    <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 ${statusColor} font-bold transition-all mb-3 z-10 bg-surface">
+                                                        ${icon}
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <p class="text-sm font-bold ${step.status === 'active' ? 'text-white' : 'text-slate-400'}">${step.name}</p>
+                                                        <p class="text-xs text-slate-500 max-w-[120px] mx-auto">${step.detail}</p>
+                                                        ${step.progress ? `<span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-sa-blue border border-slate-700">${step.progress}</span>` : ''}
+                                                    </div>
+                                                </div>
+                                            `;
+                }).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
 
                 <!-- Global Operations Header -->
@@ -998,6 +1128,101 @@
                 </div>
             `;
             }
+
+            function renderStudios(container) {
+                container.innerHTML = `
+                \u003cdiv class=\"max-w-5xl mx-auto mt-8\"\u003e
+                    \u003ch2 class=\"text-3xl font-bold text-sa-blue mb-10 text-center\"\u003eAllmer Studios\u003c/h2\u003e
+                    
+                    \u003cdiv class=\"grid grid-cols-1 md:grid-cols-2 gap-8\"\u003e
+                        ${Object.entries(studiosData).map(([studioName, studio]) => {
+                    // Create subtle background color from the studio's color
+                    const hexToRgb = (hex) => {
+                        const result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex);
+                        return result ? {
+                            r: parseInt(result[1], 16),
+                            g: parseInt(result[2], 16),
+                            b: parseInt(result[3], 16)
+                        } : null;
+                    };
+                    const rgb = hexToRgb(studio.color);
+                    const bgColor = rgb ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.1)` : 'rgba(255, 255, 255, 0.05)';
+                    const borderColor = rgb ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)` : 'rgba(255, 255, 255, 0.1)';
+
+                    return `
+                            \u003cdiv class=\"dashboard-card p-6 hover:transform hover:-translate-y-1 transition-all duration-300\" style=\"background-color: ${bgColor}; border-color: ${borderColor};\"\u003e
+                                \u003c!-- Studio Header --\u003e
+                                \u003cdiv class=\"flex justify-between items-start mb-4 border-b border-slate-700 pb-3\"\u003e
+                                    \u003ch3 class=\"text-2xl font-bold text-white\"\u003e${studioName}\u003c/h3\u003e
+                                    \u003ca href=\"https://${studio.website}\" target=\"_blank\" class=\"text-xs font-bold px-3 py-1 rounded transition-all hover:scale-105\" style=\"color: ${studio.color}; border: 1px solid ${studio.color};\"\u003e
+                                        ${studio.website} ↗
+                                    \u003c/a\u003e
+                                \u003c/div\u003e
+                                
+                                \u003c!-- Products --\u003e
+                                \u003cdiv class=\"mb-4\"\u003e
+                                    \u003ch4 class=\"text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider\"\u003eProducts\u003c/h4\u003e
+                                    \u003cdiv class=\"flex flex-wrap gap-2\"\u003e
+                                        ${studio.products.slice(0, 3).map(product => `
+                                            \u003cspan class=\"px-3 py-1 rounded text-sm font-medium text-white\" style=\"background-color: ${studio.color}20; border: 1px solid ${studio.color}40;\"\u003e
+                                                ${product}
+                                            \u003c/span\u003e
+                                        `).join('')}
+                                    \u003c/div\u003e
+                                \u003c/div\u003e
+                                
+                                \u003c!-- Technical Insight --\u003e
+                                \u003cdiv class=\"mb-4\"\u003e
+                                    \u003ch4 class=\"text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider\"\u003eTechnical Insight\u003c/h4\u003e
+                                    \u003cp class=\"text-slate-300 text-sm italic leading-relaxed\"\u003e${studio.technicalInsight}\u003c/p\u003e
+                                \u003c/div\u003e
+                                
+                                ${studio.partners.length > 0 ? `
+                                    \u003c!-- Partners --\u003e
+                                    \u003cdiv class=\"border-t border-slate-700 pt-3 mt-4\"\u003e
+                                        \u003ch4 class=\"text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider\"\u003ePartners\u003c/h4\u003e
+                                        \u003cul class=\"list-disc pl-5 text-slate-300 text-sm space-y-1\"\u003e
+                                            ${studio.partners.map(partner => `
+                                                \u003cli\u003e${partner}\u003c/li\u003e
+                                            `).join('')}
+                                        \u003c/ul\u003e
+                                    \u003c/div\u003e
+                                ` : ''}
+                                
+                                ${studio.assets && studio.assets.length > 0 ? `
+                                    \u003c!-- Assets --\u003e
+                                    \u003cdiv class=\"border-t border-slate-700 pt-3 mt-4\"\u003e
+                                        \u003ch4 class=\"text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider\"\u003eAssets\u003c/h4\u003e
+                                        \u003cdiv class=\"flex flex-wrap gap-2\"\u003e
+                                            ${studio.assets.map(asset => `
+                                                \u003ca href=\"${asset.url}\" target=\"_blank\" class=\"px-3 py-1.5 rounded text-sm font-medium transition-all hover:scale-105\" style=\"color: ${studio.color}; border: 1px solid ${studio.color}; background-color: ${studio.color}15;\"\u003e
+                                                    ${asset.name} ↗
+                                                \u003c/a\u003e
+                                            `).join('')}
+                                        \u003c/div\u003e
+                                    \u003c/div\u003e
+                                ` : ''}
+                                
+                                ${studio.externalDatabases && studio.externalDatabases.length > 0 ? `
+                                    \u003c!-- External Databases --\u003e
+                                    \u003cdiv class=\"border-t border-slate-700 pt-3 mt-4\"\u003e
+                                        \u003ch4 class=\"text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider\"\u003eExternal Databases\u003c/h4\u003e
+                                        \u003cdiv class=\"flex flex-wrap gap-2\"\u003e
+                                            ${studio.externalDatabases.map(db => `
+                                                \u003ca href=\"${db.url}\" target=\"_blank\" class=\"px-3 py-1.5 rounded text-sm font-medium transition-all hover:scale-105\" style=\"color: ${studio.color}; border: 1px solid ${studio.color}; background-color: ${studio.color}15;\"\u003e
+                                                    ${db.name} ↗
+                                                \u003c/a\u003e
+                                            `).join('')}
+                                        \u003c/div\u003e
+                                    \u003c/div\u003e
+                                ` : ''}
+                            \u003c/div\u003e
+                        `}).join('')}
+                    \u003c/div\u003e
+                \u003c/div\u003e
+            `;
+            }
+
 
             function renderPartners(container) {
                 // Function to calculate age from birthday
