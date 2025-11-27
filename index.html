@@ -216,6 +216,12 @@
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(4px);
         }
+
+        /* Dropdown */
+        .dropdown-group:hover .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
     </style>
 </head>
 
@@ -267,7 +273,7 @@
         </header>
 
         <!-- Navigation -->
-        <nav class="mb-8 overflow-x-auto">
+        <nav class="mb-8 overflow-x-auto md:overflow-visible">
             <div class="flex justify-center min-w-max space-x-2 md:space-x-8 px-4 border-b border-slate-800">
                 <button class="nav-tab active py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('home')">Home</button>
@@ -281,8 +287,28 @@
                     onclick="switchTab('events')">Events</button>
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('financials')">Financials</button>
-                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
-                    onclick="switchTab('dictionary')">Dictionary</button>
+
+                <!-- Knowledge Dropdown -->
+                <div class="relative dropdown-group flex items-center">
+                    <button
+                        class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white flex items-center gap-1">
+                        Knowledge
+                        <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div
+                        class="dropdown-menu hidden absolute top-full right-0 mt-0 w-48 bg-surface border border-slate-700 rounded-xl shadow-xl overflow-hidden z-50">
+                        <button
+                            class="w-full text-left px-4 py-3 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border-b border-slate-800"
+                            onclick="switchTab('dictionary')">Dictionary</button>
+                        <button
+                            class="w-full text-left px-4 py-3 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+                            onclick="switchTab('processes')">Processes</button>
+                    </div>
+                </div>
             </div>
         </nav>
 
@@ -920,7 +946,14 @@
                 // Update Nav
                 document.querySelectorAll('.nav-tab').forEach(btn => {
                     btn.classList.remove('active');
-                    if (btn.getAttribute('onclick').includes(tabName)) btn.classList.add('active');
+                    const onclick = btn.getAttribute('onclick');
+                    if (onclick && onclick.includes(tabName)) {
+                        btn.classList.add('active');
+                    }
+                    // Handle Knowledge Dropdown active state
+                    if (btn.innerText.includes('Knowledge') && (tabName === 'dictionary' || tabName === 'processes')) {
+                        btn.classList.add('active');
+                    }
                 });
 
                 // Render
@@ -933,7 +966,9 @@
                     else if (tabName === 'brands') renderBrands(main);
                     else if (tabName === 'events') renderEvents(main);
                     else if (tabName === 'financials') renderFinancials(main);
+                    else if (tabName === 'financials') renderFinancials(main);
                     else if (tabName === 'dictionary') renderDictionary(main);
+                    else if (tabName === 'processes') renderProcesses(main);
 
                     main.classList.remove('animate-slide-up');
                     void main.offsetWidth; // trigger reflow
@@ -1533,12 +1568,37 @@
 
 
             function renderEvents(container) {
+                // Sort events by date
+                const sortedEvents = [...eventsData].sort((a, b) => {
+                    const parseDate = (dateStr) => {
+                        // Extract "Month Day" and "Year"
+                        // Handle format "August 20–24, 2026" -> "August 20, 2026"
+                        // Split by comma to get year
+                        const parts = dateStr.split(',');
+                        if (parts.length < 2) return new Date(0);
+
+                        const year = parts[1].trim();
+                        // Get the first part "August 20–24"
+                        const datePart = parts[0].trim();
+                        // Split by space to get Month
+                        const dateSubParts = datePart.split(' ');
+                        const month = dateSubParts[0];
+                        // Get the day part, taking only the start day if there's a range
+                        // Regex to match the first number
+                        const dayMatch = dateSubParts[1].match(/(\d+)/);
+                        const day = dayMatch ? dayMatch[1] : '1';
+
+                        return new Date(`${month} ${day}, ${year}`);
+                    };
+                    return parseDate(a.date) - parseDate(b.date);
+                });
+
                 container.innerHTML = `
                 <div class="max-w-4xl mx-auto mt-8">
                     <h2 class="text-3xl font-bold text-sa-blue mb-10 text-center">Upcoming Events</h2>
                     
                     <div class="grid grid-cols-1 gap-6">
-                        ${eventsData.map(event => `
+                        ${sortedEvents.map(event => `
                             <div class="dashboard-card p-6 flex flex-col md:flex-row justify-between items-center hover:bg-slate-800/50 transition-all">
                                 <div class="mb-4 md:mb-0">
                                     <h3 class="text-2xl font-bold text-white mb-2">${event.name}</h3>
@@ -1646,6 +1706,22 @@
                     </div>
                 </div>
             `;
+            }
+
+            function renderProcesses(container) {
+                container.innerHTML = `
+                <div class="max-w-4xl mx-auto mt-8 text-center">
+                    <h2 class="text-3xl font-bold text-sa-blue mb-6">Processes</h2>
+                    <div class="dashboard-card p-12">
+                        <svg class="w-20 h-20 mx-auto text-slate-600 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                        <h3 class="text-xl font-bold text-white mb-2">Process Documentation</h3>
+                        <p class="text-slate-400">Standard operating procedures and workflows are currently being updated.</p>
+                        <p class="text-slate-500 text-sm mt-4">Check back soon for the new documentation.</p>
+                    </div>
+                </div>
+                `;
             }
 
             window.filterDictionary = function () {
