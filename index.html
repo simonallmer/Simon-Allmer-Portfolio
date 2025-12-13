@@ -278,6 +278,8 @@
                 <button class="nav-tab active py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('home')">Home</button>
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
+                    onclick="switchTab('projects')">Projects</button>
+                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('studios')">Studios</button>
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('products')">Products</button>
@@ -286,29 +288,11 @@
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
                     onclick="switchTab('events')">Events</button>
                 <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
-                    onclick="switchTab('financials')">Financials</button>
+                    onclick="switchTab('assets')">Assets</button>
 
                 <!-- Knowledge Dropdown -->
-                <div class="relative dropdown-group flex items-center">
-                    <button
-                        class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white flex items-center gap-1">
-                        Knowledge
-                        <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
-                            </path>
-                        </svg>
-                    </button>
-                    <div
-                        class="dropdown-menu hidden absolute top-full right-0 mt-0 w-48 bg-surface border border-slate-700 rounded-xl shadow-xl overflow-hidden z-50">
-                        <button
-                            class="w-full text-left px-4 py-3 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border-b border-slate-800"
-                            onclick="switchTab('dictionary')">Dictionary</button>
-                        <button
-                            class="w-full text-left px-4 py-3 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
-                            onclick="switchTab('processes')">Processes</button>
-                    </div>
-                </div>
+                <button class="nav-tab py-4 px-2 text-slate-300 font-medium hover:text-white"
+                    onclick="switchTab('dictionary')">Dictionary</button>
             </div>
         </nav>
 
@@ -437,7 +421,7 @@
                 'Spain': {
                     region: 'Europe', flag: '🇪🇸', population: '47.4 Million',
                     largestCities: [{ name: 'Madrid', pop: '3.2M' }, { name: 'Barcelona', pop: '1.6M' }, { name: 'Valencia', pop: '0.8M' }],
-                    cities: ['Madrid'], entities: ['Allmer ES'], realEstate: 0, partners: [], note: 'Spanish market hub.', presenceLevel: 'red'
+                    cities: ['Madrid', 'Barcelona'], entities: ['Allmer ES'], realEstate: 0, partners: [], note: 'Spanish market hub.', presenceLevel: 'red'
                 },
                 'France': {
                     region: 'Europe', flag: '🇫🇷', population: '67.7 Million',
@@ -447,23 +431,23 @@
                 'Germany': {
                     region: 'Europe', flag: '🇩🇪', population: '83.2 Million',
                     largestCities: [{ name: 'Berlin', pop: '3.6M' }, { name: 'Hamburg', pop: '1.8M' }, { name: 'Munich', pop: '1.4M' }],
-                    cities: ['Berlin'], entities: ['Allmer DE'], realEstate: 0, partners: [], note: 'Gaming market.', presenceLevel: 'red'
+                    cities: ['Hamburg', 'Frankfurt'], entities: ['Allmer DE'], realEstate: 0, partners: [], note: 'Gaming market.', presenceLevel: 'red'
                 },
                 'Italy': {
                     region: 'Europe', flag: '🇮🇹', population: '59.1 Million',
-                    largestCities: [{ name: 'Rome', pop: '2.8M' }, { name: 'Milan', pop: '1.3M' }, { name: 'Naples', pop: '0.9M' }],
+                    largestCities: [{ name: 'Rome', pop: '4.3M' }, { name: 'Milan', pop: '3.1M' }, { name: 'Naples', pop: '2.2M' }],
                     cities: ['Rome', 'Milan'], entities: ['Allmer IT Srl'], realEstate: 0, partners: ['Film Production Studio A', 'Merchandise Distributor B'], note: 'Film partnerships.', presenceLevel: 'yellow'
                 },
                 'Austria': {
                     region: 'Europe', flag: '🇦🇹', population: '8.9 Million',
-                    largestCities: [{ name: 'Vienna', pop: '1.9M' }, { name: 'Graz', pop: '0.3M' }, { name: 'Linz', pop: '0.2M' }],
-                    cities: ['Vienna', 'Salzburg'], entities: ['Allmer AT GmbH'], realEstate: 3, realEstateDetails: [{ name: 'Wieden', type: 'Mixed' }, { name: 'Döbling', type: 'Residential' }, { name: 'Wagram', type: 'Invest' }], partners: ['Bank Partner C'], note: 'Global HQ.', presenceLevel: 'green'
+                    largestCities: [{ name: 'Vienna', pop: '1.9M' }, { name: 'Salzburg', pop: '0.15M' }],
+                    cities: ['Vienna', 'Salzburg'], entities: ['Allmer AT GmbH'], realEstate: 3, realEstateDetails: [{ name: 'Wieden', type: 'Mixed', city: 'Vienna' }, { name: 'Döbling', type: 'Residential', city: 'Vienna' }, { name: 'Wagram', type: 'Invest', city: 'Vienna' }], partners: [{ name: 'Paradice', url: 'https://www.paradice.wien', cities: ['Vienna'] }, { name: 'Zuckerlwerkstatt', url: 'https://www.zuckerlwerkstatt.at', cities: ['Vienna', 'Salzburg'] }], note: 'Global HQ.', presenceLevel: 'green'
                 },
 
                 'India': {
                     region: 'Asia', flag: '🇮🇳', population: '1.38 Billion',
                     largestCities: [{ name: 'Mumbai', pop: '12.5M' }, { name: 'Delhi', pop: '11.0M' }, { name: 'Bangalore', pop: '8.4M' }],
-                    cities: ['Mumbai'], entities: ['Allmer IN'], realEstate: 0, partners: ['Mayank Kumarr'], note: 'Mobile games growth.', presenceLevel: 'yellow'
+                    cities: ['Mumbai'], entities: ['Allmer IN'], realEstate: 0, partners: [{ name: 'Mayank Kumarr', url: 'https://www.artstation.com/mayankkumar77' }], note: 'Mobile games growth.', presenceLevel: 'yellow'
                 },
                 'Singapore': {
                     region: 'Asia', flag: '🇸🇬', population: '5.7 Million',
@@ -477,18 +461,18 @@
                 },
                 'China': {
                     region: 'Asia', flag: '🇨🇳', population: '1.41 Billion',
-                    largestCities: [{ name: 'Shanghai', pop: '26.3M' }, { name: 'Beijing', pop: '21.5M' }, { name: 'Chongqing', pop: '30.5M' }],
-                    cities: ['Beijing'], entities: ['Allmer CN'], realEstate: 0, partners: ['Jang Jae Ok'], note: 'Complex partnerships.', presenceLevel: 'yellow'
+                    largestCities: [{ name: 'Shanghai', pop: '29.2M' }, { name: 'Beijing', pop: '21.9M' }, { name: 'Chongqing', pop: '32.1M' }],
+                    cities: ['Beijing', 'Shanghai'], entities: ['Allmer CN'], realEstate: 0, partners: [{ name: 'Jang Jae Ok', url: 'https://jangjaeok.artstation.com' }, { name: 'DoFine Games', url: 'https://www.dofinegames.com' }], note: 'Complex partnerships.', presenceLevel: 'yellow'
                 },
                 'South Korea': {
                     region: 'Asia', flag: '🇰🇷', population: '51.7 Million',
                     largestCities: [{ name: 'Seoul', pop: '9.7M' }, { name: 'Busan', pop: '3.4M' }, { name: 'Incheon', pop: '2.9M' }],
-                    cities: ['Seoul'], entities: ['Allmer KR'], realEstate: 0, partners: ['Yong Hoo Kim'], note: 'E-Sports focus.', presenceLevel: 'yellow'
+                    cities: ['Seoul'], entities: ['Allmer KR'], realEstate: 0, partners: [{ name: 'Yong Hoo Kim', url: 'https://www.instagram.com/hopkins__kim/' }], note: 'E-Sports focus.', presenceLevel: 'yellow'
                 },
                 'Japan': {
                     region: 'Asia', flag: '🇯🇵', population: '125.8 Million',
                     largestCities: [{ name: 'Tokyo', pop: '13.9M' }, { name: 'Yokohama', pop: '3.7M' }, { name: 'Osaka', pop: '2.7M' }],
-                    cities: ['Tokyo'], entities: ['Allmer JP'], realEstate: 0, partners: [], note: 'IP market.', presenceLevel: 'red'
+                    cities: ['Tokyo'], entities: ['Allmer JP'], realEstate: 0, partners: [{ name: 'Hanayama', url: 'https://hanayama-toys.com' }], note: 'IP market.', presenceLevel: 'red'
                 },
                 'Australia': {
                     region: 'Asia', flag: '🇦🇺', population: '25.7 Million',
@@ -496,41 +480,8 @@
                     cities: ['Sydney'], entities: ['Allmer AU'], realEstate: 0, partners: [], note: 'Oceania logistics.', presenceLevel: 'red'
                 },
 
-                'Morocco': {
-                    region: 'Africa', flag: '🇲🇦', population: '38.2 Million',
-                    largestCities: [{ name: 'Casablanca', pop: '4.0M' }, { name: 'Rabat', pop: '2.0M' }, { name: 'Tangier', pop: '1.4M' }],
-                    cities: ['Casablanca', 'Rabat'], entities: ['Allmer MA'], realEstate: 0, partners: [], note: 'Gateway to North Africa and Europe.', presenceLevel: 'red'
-                },
-                'Egypt': {
-                    region: 'Africa', flag: '🇪🇬', population: '116.5 Million',
-                    largestCities: [{ name: 'Cairo', pop: '10.3M' }, { name: 'Giza', pop: '9.6M' }, { name: 'Alexandria', pop: '5.7M' }],
-                    cities: ['Cairo', 'Alexandria'], entities: ['Allmer EG'], realEstate: 0, partners: [], note: 'North African regional office.', presenceLevel: 'red'
-                },
-                'Ghana': {
-                    region: 'Africa', flag: '🇬🇭', population: '34.7 Million',
-                    largestCities: [{ name: 'Accra', pop: '4.4M' }, { name: 'Kumasi', pop: '3.9M' }, { name: 'Tamale', pop: '0.5M' }],
-                    cities: ['Accra'], entities: ['Allmer GH'], realEstate: 0, partners: [], note: 'West African operational support.', presenceLevel: 'red'
-                },
-                'Nigeria': {
-                    region: 'Africa', flag: '🇳🇬', population: '232.7 Million',
-                    largestCities: [{ name: 'Lagos', pop: '16.5M' }, { name: 'Kano', pop: '4.5M' }, { name: 'Ibadan', pop: '4.0M' }],
-                    cities: ['Lagos', 'Abuja'], entities: ['Allmer NG'], realEstate: 0, partners: [], note: 'Key market for West African expansion.', presenceLevel: 'red'
-                },
-                'Ethiopia': {
-                    region: 'Africa', flag: '🇪🇹', population: '132.1 Million',
-                    largestCities: [{ name: 'Addis Ababa', pop: '3.9M' }, { name: 'Dire Dawa', pop: '1.3M' }, { name: 'Mek\'ele', pop: '0.5M' }],
-                    cities: ['Addis Ababa'], entities: ['Allmer ET'], realEstate: 0, partners: [], note: 'Emerging market focus.', presenceLevel: 'red'
-                },
-                'Kenya': {
-                    region: 'Africa', flag: '🇰🇪', population: '56.4 Million',
-                    largestCities: [{ name: 'Nairobi', pop: '5.5M' }, { name: 'Mombasa', pop: '1.5M' }, { name: 'Kisumu', pop: '0.4M' }],
-                    cities: ['Nairobi', 'Mombasa'], entities: ['Allmer KE'], realEstate: 0, partners: [], note: 'East African technology and innovation hub.', presenceLevel: 'red'
-                },
-                'South Africa': {
-                    region: 'Africa', flag: '🇿🇦', population: '63.0 Million',
-                    largestCities: [{ name: 'Johannesburg', pop: '6.3M' }, { name: 'Cape Town', pop: '5.0M' }, { name: 'Durban', pop: '3.1M' }],
-                    cities: ['Johannesburg', 'Cape Town'], entities: ['Allmer ZA'], realEstate: 0, partners: [], note: 'Strategic hub for Southern Africa operations.', presenceLevel: 'red'
-                },
+
+
             };
 
             const subdivisions = {
@@ -637,6 +588,7 @@
             const projectData = [
                 {
                     title: "Believe",
+                    studio: "Allmer Games",
                     budget: "€8,800 (€4,800 Illus. + €4,000 Print)",
                     steps: [
                         { name: "Illustrations", detail: "By Mayank Kumarr", status: "active", progress: "5/80" },
@@ -647,6 +599,7 @@
                 {
                     title: "American Portrait",
                     subtitle: "Kissinger: A World Destroyed",
+                    studio: "Allmer Comics",
                     budget: "€10,000 (Estimated)",
                     steps: [
                         { name: "Screenplay", detail: "Writing Phase", status: "done" },
@@ -657,6 +610,7 @@
                 },
                 {
                     title: "Sin Album",
+                    studio: "Allmer Music",
                     budget: "€0",
                     steps: [
                         { name: "Song Writing", detail: "Lyrics & Composition", status: "done" },
@@ -691,11 +645,13 @@
             const studiosData = {
                 'Allmer Comics': {
                     website: 'allmercomics.com',
-                    products: ['Comic Books', 'Graphic Novels', 'Digital Comics'],
+                    products: ['Comic Books', 'Digital Comics'],
                     technicalInsight: 'Sequential art meets cinematic storytelling. Every panel is crafted with film-quality composition and narrative depth.',
                     partners: [],
                     color: '#ef4444',
-                    assets: [],
+                    assets: [
+                        { name: 'Artstation', url: 'https://www.artstation.com' }
+                    ],
                     externalDatabases: [
                         { name: 'Grand Comics Database', url: 'https://www.comics.org/' },
                         { name: 'Goodreads', url: 'https://www.goodreads.com/author/show/57946604.Simon_Allmer' }
@@ -703,7 +659,7 @@
                 },
                 'Allmer Films': {
                     website: 'allmerfilms.com',
-                    products: ['Feature Films', 'Short Films', 'Documentaries'],
+                    products: ['Feature Films', 'Limited Series'],
                     technicalInsight: 'Independent filmmaking with studio-quality production values. Story-first approach with global distribution reach.',
                     partners: [],
                     color: '#3b82f6',
@@ -714,18 +670,20 @@
                 },
                 'Allmer Music': {
                     website: 'allmermusic.com',
-                    products: ['Albums', 'Singles', 'Music Videos'],
+                    products: ['Albums', 'Music Videos'],
                     technicalInsight: 'Genre-fluid artistry combining classical training with modern production techniques. Multi-platform distribution strategy.',
                     partners: [],
                     color: '#facc15',
-                    assets: [],
+                    assets: [
+                        { name: 'Suno', url: 'https://suno.com' }
+                    ],
                     externalDatabases: []
                 },
                 'Allmer Games': {
                     website: 'allmergames.com',
-                    products: ['Tabletop Games', 'Video Games', 'Toys'],
-                    technicalInsight: 'Storytelling in videogames can be far more sophisticated and/or the console won\'t matter in the future of gaming, our games run on any device.',
-                    partners: ['Paradice (Tabletop Game Events)'],
+                    products: ['Tabletop Games', 'Video Games'],
+                    technicalInsight: '',
+                    partners: [{ name: 'Paradice (Tabletop Game Events)', url: 'https://www.paradice.wien' }],
                     color: '#22c55e',
                     assets: [
                         { name: 'GitHub', url: 'https://github.com/allmergames' },
@@ -739,7 +697,7 @@
                 },
                 'Allmer Journals': {
                     website: 'allmerjournals.com',
-                    products: ['Magazines', 'Academic Journals', 'Digital Publications'],
+                    products: ['Journals', 'Books'],
                     technicalInsight: 'Thought leadership meets accessible journalism. Bridging academia and popular discourse with rigorous editorial standards.',
                     partners: [],
                     color: '#92400e',
@@ -750,8 +708,8 @@
                 },
                 'Allmer Snacks': {
                     website: 'allmersnacks.com',
-                    products: ['Candies', 'Beverages', 'Specialty Snacks'],
-                    technicalInsight: 'Artisanal quality at scale. Merging traditional craftsmanship with modern distribution networks.',
+                    products: ['Foods', 'Beverages'],
+                    technicalInsight: '',
                     partners: ['Zuckerlwerkstatt (Snack Production)'],
                     color: '#ec4899',
                     assets: [],
@@ -769,13 +727,13 @@
                 { name: 'Allmer Journals', type: 'Studio', description: 'Coming soon to follow' },
                 { name: 'Allmer Snacks', type: 'Studio', description: 'Coming soon to follow' },
 
-                { name: 'Futory', type: 'Brand', description: 'Future-focused narrative universe.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'], website: 'futory.com' },
+                { name: 'Futory', type: 'Brand', description: 'Future-focused narrative universe.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'], website: 'futory.com', series: ['Futory Saga', 'Futory Cards'] },
                 { name: 'Lunyra', type: 'Brand', description: 'Fantasy world building.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'], website: 'lunyra.com' },
-                { name: 'American Portrait', type: 'Brand', description: 'Cultural exploration project.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'] },
+                { name: 'American Portrait', type: 'Brand', description: 'Cultural exploration project.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'], series: ['Kissinger', 'Carter'] },
                 { name: 'Detective Noname', type: 'Brand', description: 'Mystery franchise.', studios: ['Allmer Comics', 'Allmer Films', 'Allmer Music', 'Allmer Games'] },
-                { name: 'Society Review', type: 'Brand', description: 'Social commentary journal.', studios: ['Allmer Journals'], website: 'societyreview.org' },
+                { name: 'Society Review', type: 'Brand', description: 'Social commentary journal.', studios: ['Allmer Journals'], website: 'societyreview.org', series: ['Society Review Magazine', 'Society Review Programs'] },
                 { name: 'Chronicle', type: 'Brand', description: 'Historical records and storytelling.', studios: ['Allmer Journals'] },
-                { name: 'Seven Wonders', type: 'Brand', description: 'Gaming experience.', studios: ['Allmer Games'] },
+                { name: 'Seven Wonders', type: 'Brand', description: 'Pure Abstract Strategy Games that are meticilously designed to appeal to both the eye and the intellect.', goal: 'Make them the most recognisable game series of all time.', metrics: ['Site Visitors', 'Products Sold', 'Apps Downloaded'], studios: ['Allmer Games'], website: 'sevenwondersgames.com', series: ['Old Seven Wonders', 'New Seven Wonders'] },
                 { name: 'Metropole', type: 'Brand', description: 'Snack brand.', studios: ['Allmer Snacks'] },
                 { name: 'Solar-Soda', type: 'Brand', description: 'Snack brand.', studios: ['Allmer Snacks'] },
                 { name: 'Believe', type: 'Brand', description: 'Gaming experience.', studios: ['Allmer Games'], website: 'believegame.com' },
@@ -789,6 +747,20 @@
             ];
 
             const eventsData = [
+                {
+                    name: 'Spielefest Wien',
+                    date: 'July 5–6, 2025',
+                    region: 'Europe',
+                    location: 'Vienna, Austria',
+                    attendance: '25,000'
+                },
+                {
+                    name: 'Game City Wien',
+                    date: 'October 10–12, 2025',
+                    region: 'Europe',
+                    location: 'Vienna, Austria',
+                    attendance: '87,000'
+                },
                 {
                     name: 'Gamescom',
                     date: 'August 20–24, 2026',
@@ -867,7 +839,7 @@
                 ],
                 'Allmer Snacks': [
                     { id: 'S001', title: 'Solar-Soda' },
-                    { id: 'S002', title: 'Metropole Coffee Candy' },
+                    { id: 'S002', title: 'Metropole' },
                     { id: 'S003', title: 'Hot Ice [TBA]' }
                 ]
             };
@@ -879,7 +851,7 @@
                     { name: 'Futory Cards Unity', stockSale: 170, stockGift: 4, price: 25.00 }
                 ],
                 snacks: [
-                    { name: 'Metropole Coffee Candy', stockSale: 10, stockGift: 0, price: 10.00 }
+                    { name: 'Metropole', stockSale: 10, stockGift: 0, price: 10.00 }
                 ]
             };
 
@@ -890,7 +862,7 @@
                 } else {
                     item.stockGift = Math.max(0, item.stockGift + change);
                 }
-                renderFinancials(document.getElementById('main-content'));
+                renderAssets(document.getElementById('main-content'));
             }
 
             // --- FIREBASE SETUP ---
@@ -961,12 +933,12 @@
                 main.style.opacity = '0';
                 setTimeout(() => {
                     if (tabName === 'home') renderHome(main);
+                    else if (tabName === 'projects') renderProjects(main);
                     else if (tabName === 'studios') renderStudios(main);
                     else if (tabName === 'products') renderProducts(main);
                     else if (tabName === 'brands') renderBrands(main);
                     else if (tabName === 'events') renderEvents(main);
-                    else if (tabName === 'financials') renderFinancials(main);
-                    else if (tabName === 'financials') renderFinancials(main);
+                    else if (tabName === 'assets') renderAssets(main);
                     else if (tabName === 'dictionary') renderDictionary(main);
                     else if (tabName === 'processes') renderProcesses(main);
 
@@ -1011,62 +983,7 @@
                     `).join('')}
                 </div>
 
-                <!-- Project Tracker Section -->
-                <div class="mb-20">
-                    <div class="flex justify-center mb-8">
-                        <div class="bg-surface-highlight border border-slate-600 px-12 py-3 rounded-lg shadow-lg text-center">
-                            <h2 class="text-xl font-display font-bold text-white">Project Tracker</h2>
-                        </div>
-                    </div>
-                    
-                    <div class="space-y-8 max-w-4xl mx-auto">
-                        ${projectData.map(project => `
-                            <div class="dashboard-card p-6">
-                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b border-slate-700 pb-4">
-                                    <div>
-                                        <h3 class="text-2xl font-bold text-white">${project.title}</h3>
-                                        ${project.subtitle ? `<p class="text-slate-400 text-sm">${project.subtitle}</p>` : ''}
-                                    </div>
-                                    <div class="mt-2 md:mt-0 text-right">
-                                        <span class="text-xs text-slate-500 uppercase font-bold">Estimated Budget</span>
-                                        <p class="text-status-green font-mono font-bold">${project.budget}</p>
-                                    </div>
-                                </div>
-
-                                <!-- Kanban Stepper -->
-                                <div class="relative">
-                                    <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-800 -translate-y-1/2 rounded"></div>
-                                    <div class="relative z-10 flex justify-between">
-                                        ${project.steps.map((step, index) => {
-                    let statusColor = 'bg-slate-800 border-slate-600 text-slate-500'; // Pending
-                    let icon = index + 1;
-
-                    if (step.status === 'active') {
-                        statusColor = 'bg-sa-darkblue border-sa-blue text-white shadow-[0_0_15px_rgba(96,165,250,0.5)]';
-                    } else if (step.status === 'done') {
-                        statusColor = 'bg-status-green border-green-400 text-white';
-                        icon = '✓';
-                    }
-
-                    return `
-                                                <div class="flex flex-col items-center group flex-1">
-                                                    <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 ${statusColor} font-bold transition-all mb-3 z-10 bg-surface">
-                                                        ${icon}
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <p class="text-sm font-bold ${step.status === 'active' ? 'text-white' : 'text-slate-400'}">${step.name}</p>
-                                                        <p class="text-xs text-slate-500 max-w-[120px] mx-auto">${step.detail}</p>
-                                                        ${step.progress ? `<span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-sa-blue border border-slate-700">${step.progress}</span>` : ''}
-                                                    </div>
-                                                </div>
-                                            `;
-                }).join('')}
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
+                <!-- Project Tracker Section Removed -->
 
                 <!-- Global Operations Header -->
                 <div class="flex justify-center mb-8">
@@ -1120,6 +1037,7 @@
                                     <div>
                                         <h3 class="text-2xl font-bold text-white">${project.title}</h3>
                                         ${project.subtitle ? `<p class="text-slate-400 text-sm">${project.subtitle}</p>` : ''}
+                                        <p class="text-sa-blue text-sm mt-1">Studio: <span class="text-white">${project.studio}</span></p>
                                     </div>
                                     <div class="mt-2 md:mt-0 text-right">
                                         <span class="text-xs text-slate-500 uppercase font-bold">Estimated Budget</span>
@@ -1192,69 +1110,77 @@
                                     \u003ca href=\"https://${studio.website}\" target=\"_blank\" class=\"text-xs font-bold px-3 py-1 rounded transition-all hover:scale-105\" style=\"color: ${studio.color}; border: 1px solid ${studio.color};\"\u003e
                                         ${studio.website} ↗
                                     \u003c/a\u003e
-                                \u003c/div\u003e
+                                    </a>
+                                </div>
                                 
-                                \u003c!-- Products --\u003e
-                                \u003cdiv class=\"mb-4\"\u003e
-                                    \u003ch4 class=\"text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider\"\u003eProducts\u003c/h4\u003e
-                                    \u003cdiv class=\"flex flex-wrap gap-2\"\u003e
+                                <!-- Products -->
+                                <div class="mb-4">
+                                    <h4 class="text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider">Products</h4>
+                                    <div class="flex flex-wrap gap-2">
                                         ${studio.products.slice(0, 3).map(product => `
-                                            \u003cspan class=\"px-3 py-1 rounded text-sm font-medium text-white\" style=\"background-color: ${studio.color}20; border: 1px solid ${studio.color}40;\"\u003e
+                                            <span class="px-3 py-1 rounded text-sm font-medium text-white" style="background-color: ${studio.color}20; border: 1px solid ${studio.color}40;">
                                                 ${product}
-                                            \u003c/span\u003e
+                                            </span>
                                         `).join('')}
-                                    \u003c/div\u003e
-                                \u003c/div\u003e
+                                    </div>
+                                </div>
                                 
-                                \u003c!-- Technical Insight --\u003e
-                                \u003cdiv class=\"mb-4\"\u003e
-                                    \u003ch4 class=\"text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider\"\u003eTechnical Insight\u003c/h4\u003e
-                                    \u003cp class=\"text-slate-300 text-sm italic leading-relaxed\"\u003e${studio.technicalInsight}\u003c/p\u003e
-                                \u003c/div\u003e
+                                ${studio.technicalInsight ? `
+                                <!-- Technical Insight -->
+                                <div class="mb-4">
+                                    <h4 class="text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider">Technical Insight</h4>
+                                    <p class="text-slate-300 text-sm italic leading-relaxed">${studio.technicalInsight}</p>
+                                </div>
+                                ` : ''}
                                 
                                 ${studio.partners.length > 0 ? `
-                                    \u003c!-- Partners --\u003e
-                                    \u003cdiv class=\"border-t border-slate-700 pt-3 mt-4\"\u003e
-                                        \u003ch4 class=\"text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider\"\u003ePartners\u003c/h4\u003e
-                                        \u003cul class=\"list-disc pl-5 text-slate-300 text-sm space-y-1\"\u003e
-                                            ${studio.partners.map(partner => `
-                                                \u003cli\u003e${partner}\u003c/li\u003e
-                                            `).join('')}
-                                        \u003c/ul\u003e
-                                    \u003c/div\u003e
+                                    <!-- Partners -->
+                                    <div class="border-t border-slate-700 pt-3 mt-4">
+                                        <h4 class="text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider">Partners</h4>
+                                        <ul class="list-disc pl-5 text-slate-300 text-sm space-y-1">
+                                            ${studio.partners.map(partner => {
+                        if (typeof partner === 'string') {
+                            return `<li>${partner}</li>`;
+                        } else if (partner.url) {
+                            return `<li><a href="${partner.url}" target="_blank" class="text-sa-blue hover:text-white transition-colors">${partner.name} ↗</a></li>`;
+                        }
+                        return `<li>${partner.name}</li>`;
+                    }).join('')}
+                                        </ul>
+                                    </div>
                                 ` : ''}
                                 
                                 ${studio.assets && studio.assets.length > 0 ? `
-                                    \u003c!-- Assets --\u003e
-                                    \u003cdiv class=\"border-t border-slate-700 pt-3 mt-4\"\u003e
-                                        \u003ch4 class=\"text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider\"\u003eAssets\u003c/h4\u003e
-                                        \u003cdiv class=\"flex flex-wrap gap-2\"\u003e
+                                    <!-- Assets -->
+                                    <div class="border-t border-slate-700 pt-3 mt-4">
+                                        <h4 class="text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider">Assets</h4>
+                                        <div class="flex flex-wrap gap-2">
                                             ${studio.assets.map(asset => `
-                                                \u003ca href=\"${asset.url}\" target=\"_blank\" class=\"px-3 py-1.5 rounded text-sm font-medium transition-all hover:scale-105\" style=\"color: ${studio.color}; border: 1px solid ${studio.color}; background-color: ${studio.color}15;\"\u003e
+                                                <a href="${asset.url}" target="_blank" class="px-3 py-1.5 rounded text-sm font-medium transition-all hover:scale-105" style="color: ${studio.color}; border: 1px solid ${studio.color}; background-color: ${studio.color}15;">
                                                     ${asset.name} ↗
-                                                \u003c/a\u003e
+                                                </a>
                                             `).join('')}
-                                        \u003c/div\u003e
-                                    \u003c/div\u003e
+                                        </div>
+                                    </div>
                                 ` : ''}
                                 
                                 ${studio.externalDatabases && studio.externalDatabases.length > 0 ? `
-                                    \u003c!-- External Databases --\u003e
-                                    \u003cdiv class=\"border-t border-slate-700 pt-3 mt-4\"\u003e
-                                        \u003ch4 class=\"text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider\"\u003eExternal Databases\u003c/h4\u003e
-                                        \u003cdiv class=\"flex flex-wrap gap-2\"\u003e
+                                    <!-- External Databases -->
+                                    <div class="border-t border-slate-700 pt-3 mt-4">
+                                        <h4 class="text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider">External Databases</h4>
+                                        <div class="flex flex-wrap gap-2">
                                             ${studio.externalDatabases.map(db => `
-                                                \u003ca href=\"${db.url}\" target=\"_blank\" class=\"px-3 py-1.5 rounded text-sm font-medium transition-all hover:scale-105\" style=\"color: ${studio.color}; border: 1px solid ${studio.color}; background-color: ${studio.color}15;\"\u003e
+                                                <a href="${db.url}" target="_blank" class="px-3 py-1.5 rounded text-sm font-medium transition-all hover:scale-105" style="color: ${studio.color}; border: 1px solid ${studio.color}; background-color: ${studio.color}15;">
                                                     ${db.name} ↗
-                                                \u003c/a\u003e
+                                                </a>
                                             `).join('')}
-                                        \u003c/div\u003e
-                                    \u003c/div\u003e
+                                        </div>
+                                    </div>
                                 ` : ''}
-                            \u003c/div\u003e
+                            </div>
                         `}).join('')}
-                    \u003c/div\u003e
-                \u003c/div\u003e
+                    </div>
+                </div>
             `;
             }
 
@@ -1309,17 +1235,63 @@
             `;
             }
 
-            function renderFinancials(container) {
+            function renderAssets(container) {
                 // Calculate Totals
                 const getCategoryTotal = (items) => items.reduce((sum, item) => sum + (item.stockSale * item.price), 0);
                 const gamesTotal = getCategoryTotal(inventoryData.games);
                 const snacksTotal = getCategoryTotal(inventoryData.snacks);
 
+                const equipmentData = [
+                    { id: 'mac-mini', name: 'Mac mini', subDetails: '', details: '', bought: 2026, lifespan: 8, price: 1500, color: '#60a5fa' },
+                    { id: 'ipad-pro', name: 'iPad Pro', subDetails: '', details: '', bought: 2026, lifespan: 5, price: 1000, color: '#34d399' },
+                    { id: 'alpha-6400', name: 'Sony Alpha 6400', subDetails: 'Released 2019', details: 'Lense: 16-50 mm', bought: 2026, lifespan: 10, price: 1149, color: '#facc15' },
+                    { id: 'rx0ii', name: 'Sony RX0II', subDetails: 'Released 2019', details: 'Lense: 35mm', pros: '+ Extremely small and mobile', cons: '- Not good in low light', bought: 2019, lifespan: 10, price: 799, color: '#f472b6' }
+                ];
+
+                window.highlightGraph = function (id) {
+                    equipmentData.forEach(item => {
+                        const el = document.getElementById('path-' + item.id);
+                        if (el) {
+                            el.setAttribute('stroke-opacity', '0.3');
+                            el.setAttribute('stroke-width', '2');
+                            el.style.filter = 'none';
+                        }
+                        const row = document.getElementById('row-' + item.id);
+                        if (row) row.classList.remove('bg-slate-800');
+                    });
+
+                    const active = document.getElementById('path-' + id);
+                    if (active) {
+                        active.setAttribute('stroke-opacity', '1');
+                        active.setAttribute('stroke-width', '4');
+                        active.style.filter = 'drop-shadow(0 0 8px ' + active.getAttribute('stroke') + ')';
+                    }
+                    const activeRow = document.getElementById('row-' + id);
+                    if (activeRow) activeRow.classList.add('bg-slate-800');
+                };
+
+                const generatePath = (item) => {
+                    let path = "";
+                    for (let year = 2026; year <= 2036; year++) {
+                        let age = year - item.bought;
+                        let val = item.price * (1 - age / item.lifespan);
+                        val = Math.max(0, Math.min(item.price, val));
+
+                        // Y Axis: 0 = 255, 2000 = 55 -> Range 200px for 2000 units -> 1 unit = 0.1px
+                        const x = 50 + (year - 2026) * 50;
+                        const y = 255 - (val / 10);
+
+                        if (year === 2026) path += `M${x},${y}`;
+                        else path += ` L${x},${y}`;
+                    }
+                    return path;
+                };
+
                 container.innerHTML = `
-                <div class="max-w-5xl mx-auto mt-10 space-y-12">
+                <div class="max-w-6xl mx-auto mt-10 space-y-12">
                     <h2 class="text-3xl font-bold text-sa-blue mb-8 text-center">Assets & Inventory</h2>
                     
-                    <!-- Liquid Assets (Preserved) -->
+                    <!-- Liquid Assets -->
                     <div class="dashboard-card p-8">
                         <div class="flex justify-between items-start border-b border-slate-700 pb-6">
                             <div>
@@ -1341,86 +1313,75 @@
                         </div>
                     </div>
 
-                    <!-- Linear Depreciation (Planned 2026) -->
+                    <!-- Equipment & Depreciation -->
                     <div class="dashboard-card p-8">
-                        <h3 class="text-xl font-bold text-white mb-6">Linear Depreciation (Planned 2026)</h3>
+                        <h3 class="text-xl font-bold text-white mb-6">Equipment & Depreciation (Planned 2026)</h3>
                         
-                        <!-- Graph -->
-                        <div class="mb-8 p-4 bg-slate-900/50 rounded-xl border border-slate-800 relative">
-                            <div id="graph-tooltip" class="absolute bg-slate-800 text-white text-xs px-2 py-1 rounded border border-slate-600 pointer-events-none opacity-0 transition-opacity z-10"></div>
-                            <svg viewBox="0 0 600 300" class="w-full h-auto font-mono text-xs">
-                                <!-- Grid Lines -->
-                                <line x1="50" y1="250" x2="550" y2="250" stroke="#334155" stroke-width="1" />
-                                <line x1="50" y1="50" x2="550" y2="50" stroke="#334155" stroke-width="1" stroke-dasharray="4" />
-                                
-                                <!-- Axes Labels -->
-                                <text x="40" y="255" fill="#94a3b8" text-anchor="end">0</text>
-                                <text x="40" y="205" fill="#94a3b8" text-anchor="end">500</text>
-                                <text x="40" y="155" fill="#94a3b8" text-anchor="end">1000</text>
-                                <text x="40" y="105" fill="#94a3b8" text-anchor="end">1500</text>
-                                <text x="40" y="55" fill="#94a3b8" text-anchor="end">2000</text>
-                                
-                                <!-- Years -->
-                                <text x="50" y="270" fill="#94a3b8" text-anchor="middle">2026</text>
-                                <text x="100" y="270" fill="#94a3b8" text-anchor="middle">2027</text>
-                                <text x="150" y="270" fill="#94a3b8" text-anchor="middle">2028</text>
-                                <text x="200" y="270" fill="#94a3b8" text-anchor="middle">2029</text>
-                                <text x="250" y="270" fill="#94a3b8" text-anchor="middle">2030</text>
-                                <text x="300" y="270" fill="#94a3b8" text-anchor="middle">2031</text>
-                                <text x="350" y="270" fill="#94a3b8" text-anchor="middle">2032</text>
-                                <text x="400" y="270" fill="#94a3b8" text-anchor="middle">2033</text>
-                                <text x="450" y="270" fill="#94a3b8" text-anchor="middle">2034</text>
-                                <text x="500" y="270" fill="#94a3b8" text-anchor="middle">2035</text>
-                                <text x="550" y="270" fill="#94a3b8" text-anchor="middle">2036</text>
+                        <div class="flex flex-col xl:flex-row gap-8">
+                            <!-- Graph -->
+                            <div class="flex-1">
+                                <div class="p-4 bg-slate-900/50 rounded-xl border border-slate-800 relative">
+                                    <svg viewBox="0 0 600 300" class="w-full h-auto font-mono text-xs">
+                                        <!-- Grid Lines -->
+                                        <line x1="50" y1="255" x2="550" y2="255" stroke="#334155" stroke-width="1" />
+                                        <line x1="50" y1="55" x2="550" y2="55" stroke="#334155" stroke-width="1" stroke-dasharray="4" />
+                                        
+                                        <!-- Axes Labels -->
+                                        <text x="40" y="260" fill="#94a3b8" text-anchor="end">0</text>
+                                        <text x="40" y="210" fill="#94a3b8" text-anchor="end">500</text>
+                                        <text x="40" y="160" fill="#94a3b8" text-anchor="end">1000</text>
+                                        <text x="40" y="110" fill="#94a3b8" text-anchor="end">1500</text>
+                                        <text x="40" y="60" fill="#94a3b8" text-anchor="end">2000</text>
+                                        
+                                        <!-- Years -->
+                                        ${[...Array(11)].map((_, i) => `<text x="${50 + i * 50}" y="280" fill="#94a3b8" text-anchor="middle">${2026 + i}</text>`).join('')}
 
-                                <!-- Mac Mini: 1500 -> 0 (10 years) -->
-                                <path d="M50,100 L550,250" stroke="#60a5fa" stroke-width="2" />
-                                <!-- Mac Mini Interactive Points -->
-                                ${[...Array(11)].map((_, i) => {
-                    const x = 50 + i * 50;
-                    const y = 100 + i * 15; // 1500 -> 0 over 10 steps (150 per step = 15px)
-                    const val = 1500 - i * 150;
-                    return `<circle cx="${x}" cy="${y}" r="6" fill="transparent" class="cursor-pointer hover:fill-white/20" onmouseenter="showTooltip(evt, 'Mac mini: €${val}')" onmouseleave="hideTooltip()" />`;
+                                        <!-- Paths -->
+                                        ${equipmentData.map(item => `
+                                            <path id="path-${item.id}" d="${generatePath(item)}" stroke="${item.color}" stroke-width="2" stroke-opacity="0.3" fill="none" stroke-linecap="round" stroke-linejoin="round" class="transition-all duration-300" />
+                                        `).join('')}
+                                    </svg>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-2 text-center italic">Click items in the table to highlight depreciation curve</p>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="flex-1 overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-900/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-700">
+                                            <th class="p-4 font-semibold">Item</th>
+                                            <th class="p-4 font-semibold">Buying Year</th>
+                                            <th class="p-4 font-semibold">Age</th>
+                                            <th class="p-4 font-semibold">Lifespan</th>
+                                            <th class="p-4 font-semibold text-right">Initial Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-800 text-slate-300 text-sm">
+                                        ${equipmentData.map(item => {
+                    const age = Math.max(0, new Date().getFullYear() - item.bought);
+                    return `
+                                            <tr id="row-${item.id}" class="cursor-pointer hover:bg-slate-800/50 transition-colors" onclick="highlightGraph('${item.id}')">
+                                                <td class="p-4">
+                                                    <div class="font-bold text-white flex items-center gap-2">
+                                                        <span class="w-3 h-3 rounded-full" style="background-color: ${item.color}"></span>
+                                                        ${item.name}
+                                                    </div>
+                                                    ${item.subDetails ? `<div class="text-xs text-slate-500">${item.subDetails}</div>` : ''}
+                                                    ${item.details ? `<div class="text-xs mt-1">${item.details}</div>` : ''}
+                                                    ${item.pros ? `<div class="text-xs text-green-400 mt-1">${item.pros}</div>` : ''}
+                                                    ${item.cons ? `<div class="text-xs text-red-400">${item.cons}</div>` : ''}
+                                                </td>
+                                                <td class="p-4">${item.bought}</td>
+                                                <td class="p-4">${age} years</td>
+                                                <td class="p-4">${item.lifespan} years</td>
+                                                <td class="p-4 text-right font-mono">€${item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                            </tr>
+                                            `;
                 }).join('')}
-                                <text x="60" y="95" fill="#60a5fa">Mac mini</text>
-
-                                <!-- iPad Pro: 1000 -> 0 (5 years) -->
-                                <path d="M50,150 L300,250" stroke="#34d399" stroke-width="2" />
-                                <!-- iPad Pro Interactive Points -->
-                                ${[...Array(6)].map((_, i) => {
-                    const x = 50 + i * 50;
-                    const y = 150 + i * 20; // 1000 -> 0 over 5 steps (200 per step = 20px)
-                    const val = 1000 - i * 200;
-                    return `<circle cx="${x}" cy="${y}" r="6" fill="transparent" class="cursor-pointer hover:fill-white/20" onmouseenter="showTooltip(evt, 'iPad Pro: €${val}')" onmouseleave="hideTooltip()" />`;
-                }).join('')}
-                                <text x="60" y="145" fill="#34d399">iPad Pro</text>
-
-
-                            </svg>
-                        </div>
-
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
-                                <thead>
-                                    <tr class="bg-slate-900/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-700">
-                                        <th class="p-4 font-semibold">Asset</th>
-                                        <th class="p-4 font-semibold">Lifespan (Years)</th>
-                                        <th class="p-4 font-semibold text-right">Initial Value</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-800 text-slate-300">
-                                    <tr>
-                                        <td class="p-4">Mac mini</td>
-                                        <td class="p-4">10</td>
-                                        <td class="p-4 text-right font-mono">€1,500.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="p-4">iPad Pro</td>
-                                        <td class="p-4">5</td>
-                                        <td class="p-4 text-right font-mono">€1,000.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -1637,6 +1598,31 @@
                                 ${brand.website ? `<a href="https://${brand.website}" target="_blank" class="text-xs text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-2 py-1 transition-all">${brand.website} ↗</a>` : ''}
                             </div>
                             <p class="text-slate-400 text-sm mb-4">${brand.description}</p>
+                            
+                            ${brand.goal ? `
+                                <div class="mb-3 pl-3 border-l-2 border-sa-blue/30">
+                                    <p class="text-xs text-slate-500 uppercase font-bold mb-1">Strategic Goal</p>
+                                    <p class="text-slate-300 text-sm italic">"${brand.goal}"</p>
+                                </div>
+                            ` : ''}
+
+                            ${brand.metrics ? `
+                                <div class="mb-4">
+                                    <p class="text-xs text-slate-500 uppercase font-bold mb-2">Success Metrics</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${brand.metrics.map(m => `<span class="px-2 py-1 bg-slate-900 border border-slate-700 text-xs text-sa-blue rounded font-mono">${m}</span>`).join('')}
+                                    </div>
+                                </div>
+                            ` : ''}
+
+                            ${brand.series ? `
+                                <div class="mb-3">
+                                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Series</h4>
+                                    <ul class="list-disc pl-5 text-slate-300 text-sm space-y-1">
+                                        ${brand.series.map(s => `<li>${s}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            ` : ''}
                             
                             ${brand.studios ? `
                                 <div class="flex flex-wrap gap-2 mt-2">
@@ -1911,26 +1897,142 @@
 
                 setTimeout(() => modal.classList.add('hidden'), 200);
             };
-
             window.showCountryModal = function (name) {
                 const data = countryData[name];
                 const color = data.presenceLevel === 'green' ? 'text-status-green' : (data.presenceLevel === 'yellow' ? 'text-status-yellow' : 'text-status-red');
 
+                // Track selected city
+                let selectedCity = null;
+
+                // Helper to parse population and generate dots
+                const generatePopulationDots = (popString) => {
+                    // Extract number from strings like "8.9 Million", "1.9M", "116.5 Million"
+                    const match = popString.match(/([\d.]+)\s*(M|Million|Billion)/i);
+                    if (!match) return '';
+
+                    let millions = parseFloat(match[1]);
+                    if (match[2].toLowerCase().startsWith('b')) {
+                        millions *= 1000; // Convert billions to millions
+                    }
+
+                    const dotCount = Math.floor(millions);
+                    if (dotCount === 0) return '';
+
+                    return '<div class="flex flex-wrap gap-1 mt-2">' +
+                        Array(dotCount).fill('').map(() =>
+                            '<span class="w-2 h-2 rounded-full bg-sa-blue"></span>'
+                        ).join('') +
+                        '</div>';
+                };
+
+                // Helper for highlighting and population toggle
+                window.highlightEntity = function (type, identifiers, cityName = null, cityPop = null) {
+                    // If clicking the same city, deselect it
+                    if (type === 'city' && cityName === selectedCity) {
+                        selectedCity = null;
+                        // Reset all
+                        document.querySelectorAll('.highlight-target').forEach(el => {
+                            el.classList.remove('bg-white', 'text-slate-900', 'scale-105', 'shadow-lg', 'ring-2', 'ring-sa-blue');
+                            el.classList.remove('opacity-50');
+                        });
+                        // Reset population to country level
+                        const popDisplay = document.getElementById('population-display');
+                        if (popDisplay) {
+                            const dots = generatePopulationDots(data.population);
+                            popDisplay.innerHTML = `<p class="text-xs text-slate-500 uppercase font-bold">${name} Population</p>
+                                <p class="text-white font-mono text-lg">${data.population}</p>${dots}`;
+                        }
+                        return;
+                    }
+
+                    // Reset all
+                    document.querySelectorAll('.highlight-target').forEach(el => {
+                        el.classList.remove('bg-white', 'text-slate-900', 'scale-105', 'shadow-lg', 'ring-2', 'ring-sa-blue');
+                        el.classList.add('opacity-50');
+                    });
+
+                    if (!identifiers || identifiers.length === 0) {
+                        // Reset to default state
+                        selectedCity = null;
+                        document.querySelectorAll('.highlight-target').forEach(el => {
+                            el.classList.remove('opacity-50');
+                        });
+                        // Reset population to country level
+                        const popDisplay = document.getElementById('population-display');
+                        if (popDisplay) {
+                            const dots = generatePopulationDots(data.population);
+                            popDisplay.innerHTML = `<p class="text-xs text-slate-500 uppercase font-bold">${name} Population</p>
+                                <p class="text-white font-mono text-lg">${data.population}</p>${dots}`;
+                        }
+                        return;
+                    }
+
+                    // Highlight matches
+                    identifiers.forEach(id => {
+                        const el = document.getElementById(`${type}-${id.replace(/\s+/g, '-')}`);
+                        if (el) {
+                            el.classList.remove('opacity-50');
+                            el.classList.add('bg-white', 'text-slate-900', 'scale-105', 'shadow-lg');
+                        }
+                    });
+
+                    // Update population if city is selected (lock it in)
+                    if (type === 'city' && cityName && cityPop) {
+                        selectedCity = cityName;
+                        const cityEl = document.getElementById(`city-${cityName.replace(/\s+/g, '-')}`);
+                        if (cityEl) {
+                            cityEl.classList.add('ring-2', 'ring-sa-blue');
+                        }
+                        const popDisplay = document.getElementById('population-display');
+                        if (popDisplay) {
+                            const dots = generatePopulationDots(cityPop);
+                            popDisplay.innerHTML = `<p class="text-xs text-slate-500 uppercase font-bold">${cityName} Population</p>
+                                <p class="text-white font-mono text-lg">${cityPop}</p>${dots}`;
+                        }
+                    }
+                };
+
+                const cities = data.cities && data.cities.length > 0 ? data.cities : [];
+
+                // Austria-specific events
+                const austriaEvents = name === 'Austria' ? [
+                    { name: 'Spielefest Wien', url: 'https://spielefest.wien', date: 'July 5–6, 2025', visitors: '~25,000' },
+                    { name: 'Game City Wien', url: 'https://game-city.at', date: 'October 10–12, 2025', visitors: '~87,000' }
+                ] : [];
+
+                const countryPopDots = generatePopulationDots(data.population);
+
                 const html = `
-                <div class="space-y-6">
+                <div class="space-y-6" onclick="highlightEntity(null, null)">
                     <!-- General Information -->
                     <div>
                         <h4 class="text-lg font-bold text-white border-b border-slate-700 pb-2 mb-3">General Information</h4>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="bg-slate-900 p-3 rounded border border-slate-800">
-                                <p class="text-xs text-slate-500 uppercase font-bold">Population</p>
-                                <p class="text-white font-mono">${data.population}</p>
+                            <div id="population-display" class="bg-slate-900 p-3 rounded border border-slate-800">
+                                <p class="text-xs text-slate-500 uppercase font-bold">${name} Population</p>
+                                <p class="text-white font-mono text-lg">${data.population}</p>
+                                ${countryPopDots}
                             </div>
                             <div class="bg-slate-900 p-3 rounded border border-slate-800">
-                                <p class="text-xs text-slate-500 uppercase font-bold mb-1">Largest Cities</p>
-                                <ul class="text-sm text-slate-300 space-y-1">
-                                    ${data.largestCities.map(city => `<li class="flex justify-between"><span>${city.name}</span><span class="text-slate-500">${city.pop}</span></li>`).join('')}
-                                </ul>
+                                <p class="text-xs text-slate-500 uppercase font-bold mb-1">Cities of Operations</p>
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    ${cities.length > 0 ? cities.map(city => {
+                    // Find city population from largestCities
+                    const cityData = data.largestCities.find(c => c.name === city);
+                    const cityPop = cityData ? cityData.pop : 'N/A';
+
+                    // Find partners/RE in this city
+                    const partnersInCity = (data.partners || []).filter(p => (p.cities || []).includes(city)).map(p => typeof p === 'string' ? p : p.name);
+                    const reInCity = (data.realEstateDetails || []).filter(r => r.city === city).map(r => r.name);
+                    const targets = [...partnersInCity, ...reInCity].map(t => `'${t.replace(/\s+/g, '-')}'`).join(',');
+
+                    return `<button id="city-${city.replace(/\s+/g, '-')}" 
+                                            class="highlight-target px-3 py-1 rounded bg-slate-800 text-slate-300 text-sm border border-slate-700 hover:border-sa-blue transition-all duration-300"
+                                            onclick="event.stopPropagation(); highlightEntity('city', [${targets}], '${city}', '${cityPop}')">
+                                            ${city}
+                                        </button>`;
+                }).join('') : '<span class="text-red-500 font-bold italic">Needs Approval</span>'}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1944,26 +2046,74 @@
                         </div>
                     </div>
 
+                    ${austriaEvents.length > 0 ? `
+                    <!-- Events -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white border-b border-slate-700 pb-2 mb-3">Events</h4>
+                        <div class="space-y-3">
+                            ${austriaEvents.map(event => `
+                                <div class="bg-slate-900 p-4 rounded border border-slate-800 hover:border-sa-blue transition-colors">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h5 class="text-white font-bold">${event.name}</h5>
+                                        <a href="${event.url}" target="_blank" class="text-xs text-sa-blue hover:text-white border border-sa-blue/30 hover:border-white rounded px-2 py-1 transition-all">
+                                            Visit ↗
+                                        </a>
+                                    </div>
+                                    <div class="flex gap-4 text-sm">
+                                        <span class="text-slate-400"><span class="text-slate-500 font-bold">Date:</span> ${event.date}</span>
+                                        <span class="text-slate-400"><span class="text-slate-500 font-bold">Visitors:</span> ${event.visitors}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    ` : ''}
+
                     <!-- Key Operations -->
                     <div>
                         <h4 class="text-lg font-bold text-white border-b border-slate-700 pb-2 mb-3">Key Operations</h4>
                         <div class="space-y-3">
-                            <div class="bg-slate-900 p-3 rounded border border-slate-800">
-                                <p class="text-xs text-slate-500 uppercase font-bold">Legal Entities</p>
-                                <p class="text-white">${data.entities.join(', ')}</p>
-                            </div>
-                            
                             ${data.partners.length ? `
                                 <div class="bg-slate-900 p-3 rounded border border-slate-800">
                                     <p class="text-xs text-slate-500 uppercase font-bold">Strategic Partners</p>
-                                    <ul class="list-disc pl-4 text-slate-300 text-sm mt-1">${data.partners.map(p => `<li>${p}</li>`).join('')}</ul>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        ${data.partners.map(p => {
+                    const name = typeof p === 'string' ? p : p.name;
+                    const url = typeof p === 'object' && p.url ? p.url : null;
+                    const cityList = typeof p === 'object' && p.cities ? p.cities.map(c => `'${c.replace(/\s+/g, '-')}'`).join(',') : '';
+
+                    const clickHandler = `event.stopPropagation(); highlightEntity('city', [${cityList}]);`;
+
+                    if (url) {
+                        return `<div class="inline-flex items-center gap-2">
+                                                    <span id="partner-${name.replace(/\s+/g, '-')}" class="highlight-target cursor-pointer px-3 py-1 rounded bg-slate-800 text-sa-blue border border-slate-700 hover:border-white transition-all duration-300" onclick="${clickHandler}">
+                                                        ${name}
+                                                    </span>
+                                                    <a href="${url}" target="_blank" class="text-xs text-sa-blue hover:text-white">Visit ↗</a>
+                                                </div>`;
+                    } else {
+                        return `<span id="partner-${name.replace(/\s+/g, '-')}" class="highlight-target cursor-pointer px-3 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:border-white transition-all duration-300" onclick="${clickHandler}">
+                                                    ${name}
+                                                </span>`;
+                    }
+                }).join('')}
+                                    </div>
                                 </div>
                             ` : ''}
 
                             ${data.realEstate > 0 ? `
                                 <div class="bg-slate-900 p-3 rounded border border-slate-800">
                                     <p class="text-xs text-slate-500 uppercase font-bold">Real Estate Holdings (${data.realEstate})</p>
-                                    <ul class="list-disc pl-4 text-slate-300 text-sm mt-1">${data.realEstateDetails.map(d => `<li>${d.name} <span class="text-slate-500">(${d.type})</span></li>`).join('')}</ul>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        ${data.realEstateDetails.map(d => {
+                    const cityList = d.city ? `'${d.city.replace(/\s+/g, '-')}'` : '';
+                    return `<span id="partner-${d.name.replace(/\s+/g, '-')}" 
+                                                class="highlight-target cursor-pointer px-3 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:border-white transition-all duration-300"
+                                                onclick="event.stopPropagation(); highlightEntity('city', [${cityList}])">
+                                                ${d.name} <span class="text-slate-500 ml-1 text-xs">(${d.type})</span>
+                                            </span>`;
+                }).join('')}
+                                    </div>
                                 </div>
                             ` : ''}
                         </div>
